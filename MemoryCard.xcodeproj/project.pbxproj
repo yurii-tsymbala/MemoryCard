@@ -14,6 +14,8 @@
 		4B06D6AC201A140800F60047 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6AB201A140800F60047 /* MenuViewController.swift */; };
 		4B06D6AE201A171700F60047 /* ImagePackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6AD201A171700F60047 /* ImagePackCollectionViewCell.swift */; };
 		4B06D6B1201A235D00F60047 /* LevelPackCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6B0201A235D00F60047 /* LevelPackCollectionViewCell.swift */; };
+		4B06D6BD201A56AF00F60047 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6BC201A56AF00F60047 /* Card.swift */; };
+		4B06D6BF201A56C400F60047 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6BE201A56C400F60047 /* CardModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		4B06D6AB201A140800F60047 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		4B06D6AD201A171700F60047 /* ImagePackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePackCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B06D6B0201A235D00F60047 /* LevelPackCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelPackCollectionViewCell.swift; sourceTree = "<group>"; };
+		4B06D6BC201A56AF00F60047 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		4B06D6BE201A56C400F60047 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 				4B06D6992019EAA100F60047 /* Main.storyboard */,
 				4B06D6A42019EAA100F60047 /* Info.plist */,
 				4B06D6AA2019EDFC00F60047 /* Supporting Files */,
+				4B06D6BC201A56AF00F60047 /* Card.swift */,
+				4B06D6BE201A56C400F60047 /* CardModel.swift */,
 			);
 			path = MemoryCard;
 			sourceTree = "<group>";
@@ -158,7 +164,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4B06D69E2019EAA100F60047 /* MemoryCard.xcdatamodeld in Sources */,
+				4B06D6BD201A56AF00F60047 /* Card.swift in Sources */,
 				4B06D6B1201A235D00F60047 /* LevelPackCollectionViewCell.swift in Sources */,
+				4B06D6BF201A56C400F60047 /* CardModel.swift in Sources */,
 				4B06D6AC201A140800F60047 /* MenuViewController.swift in Sources */,
 				4B06D6962019EAA100F60047 /* AppDelegate.swift in Sources */,
 				4B06D6AE201A171700F60047 /* ImagePackCollectionViewCell.swift in Sources */,
