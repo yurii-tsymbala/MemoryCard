@@ -188,7 +188,7 @@
                         <viewLayoutGuide key="safeArea" id="cnp-gG-amr"/>
                     </view>
                     <connections>
-                        <outlet property="CardCollectionView" destination="94h-l9-DSt" id="uLN-Vc-kAd"/>
+                        <outlet property="cardCollectionView" destination="94h-l9-DSt" id="uLN-Vc-kAd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAc-mr-oAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
