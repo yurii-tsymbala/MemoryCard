@@ -36,7 +36,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     ]
     
     // Назви рівнів гри
-    let levelsPack = ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5", "Level 6", "Level 7", "Level 8", "Level 9"]
+    let levelsPack = [ "12", "16", "18", "24", "28", "30"]
     
     // MARK: CollectionView Methods
     
@@ -58,7 +58,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell: ImagePackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePackCell", for: indexPath) as! ImagePackCollectionViewCell
             // Присвоюю фото в  клітинці
             cell.imagePackView.image = imagesPack[indexPath.item]
-             // Присвоюю надпис в клітинці
+            // Присвоюю надпис в клітинці
             cell.nameOfImagePackView.text = imagesPackLabel[indexPath.item]
             
             return cell
@@ -67,18 +67,33 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
             cell.numberOfLevel.text = levelsPack[indexPath.item]
+            cell.backgroundColor = UIColor.blue
             
             return cell
-            
         }
     }
+    // Змінна з mінімальним значенням карток з клітинки
+    var cardNumber = 12
+    
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // Виводить індекс клітинки на яку нажимаю
         print("Index of the cell = \(indexPath.item)")
         
-        // Клітинка, яку вибрав юзер
-       // let cell = collectionView.cellForItem(at: indexPath) as! ImagePackCollectionViewCell
+        // Виводить конкретне значення кількості карток
+        cardNumber = Int(levelsPack[indexPath.item])!
+        print(cardNumber)
+        
+        // Виконує перехід на GameVievController
+        performSegue(withIdentifier: "NumberOfCard", sender: self)
+        
+    }
+    // Надсилає дані з пікера в ViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        if segue.identifier == "NumberOfCard" {
+            let numberOfCardsFromCell = segue.destination as! GameViewController
+            numberOfCardsFromCell.cardNumbersFromMenuController = cardNumber
+        }
     }
 }

@@ -10,13 +10,13 @@ import UIKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    var cardNumbersFromStartController = 24
+    var cardNumbersFromMenuController = 12
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
-        cardArray = model.getCards(cardNumberInModel: cardNumbersFromStartController)
+        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController)
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
@@ -47,11 +47,19 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         var size = CGSize(width: screenWidth/3, height: screenHeight/6)
         
         // В залежності від кількості карток повертаю різні розміри клітинки
-        switch cardNumbersFromStartController {
+        switch cardNumbersFromMenuController {
+        case 16:
+            size = CGSize(width: screenWidth/4, height: screenHeight/4)
+        case 18:
+            size = CGSize(width: screenWidth/3, height: screenHeight/6)
         case 24:
             size = CGSize(width: screenWidth/4, height: screenHeight/6)
+        case 28:
+            size = CGSize(width: screenWidth/4, height: screenHeight/7)
         case 30:
             size = CGSize(width: screenWidth/5, height: screenHeight/6)
+        case 32:
+            size = CGSize(width: screenWidth/4, height: screenHeight/8)
         default:
            size = CGSize(width: screenWidth/3, height: screenHeight/6)
          }
