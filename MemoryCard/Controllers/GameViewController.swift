@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
+    var cardNumbersFromStartController = 24
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,18 +43,18 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         //  Висота CollectionView
         let screenHeight = Int(cardCollectionView.frame.height)
         
-        // Задаємо розміри(ширину/висоту) клітинці
+        //Задаємо розміри(ширину/висоту) клітинці
         var size = CGSize(width: screenWidth/3, height: screenHeight/6)
         
         // В залежності від кількості карток повертаю різні розміри клітинки
-       // switch cardNumbersFromStartController {
-        //case 24:
-          //  size = CGSize(width: screenWidth/4, height: screenHeight/6)
-        //case 30:
-          //  size = CGSize(width: screenWidth/5, height: screenHeight/6)
-        //default:
-         //  size = CGSize(width: screenWidth/3, height: screenHeight/6)
-         //}
+        switch cardNumbersFromStartController {
+        case 24:
+            size = CGSize(width: screenWidth/4, height: screenHeight/6)
+        case 30:
+            size = CGSize(width: screenWidth/5, height: screenHeight/6)
+        default:
+           size = CGSize(width: screenWidth/3, height: screenHeight/6)
+         }
         return size
     }
     
@@ -65,7 +67,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         // створюю клітинку
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CardCollectionViewCell
+        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
         // створюю картку
         let card = cardArray[indexPath.row]
         // присвоюю клітинці цю картку
@@ -81,7 +83,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         print("Index of the cell = \(indexPath.item)")
         
         // Клітинка, яку вибрав юзер
-        let cell = collectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
+        let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         
         // Картка, яку вибрав юзер
         let card = cardArray[indexPath.row]
