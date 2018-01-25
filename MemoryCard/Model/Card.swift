@@ -13,6 +13,5 @@ class Card {                 // клас Картка, який я буду ви
     var cardPhotoName = ""   // назва фотографії, яка буде відображатись на картці
     var isFlipped = false    // картка перевернута
     var isMatched = false    // картка виявлена
-    
 }
 

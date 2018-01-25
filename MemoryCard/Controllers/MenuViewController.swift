@@ -26,17 +26,19 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
     
-    // Назви фото-категорій
+    // Назви стікерпаків
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
-    // Картинки категорій
+   
+    // Картинки стікерпаків
     let imagesPack : [UIImage] = [
         UIImage (named : "pokemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
-    ]
-    
+ ]
+
     // Назви рівнів гри
     let levelsPack = [ "12", "16", "18", "24", "28", "30"]
+
     
     // MARK: CollectionView Methods
     
@@ -67,29 +69,37 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
             cell.numberOfLevel.text = levelsPack[indexPath.item]
-            cell.backgroundColor = UIColor.blue
+            cell.backgroundColor = UIColor.lightGray
             
             return cell
         }
     }
-    // Змінна з mінімальним значенням карток з клітинки
+    // Змінна з дефолтним значенням карток з клітинки
     var cardNumber = 12
-    
+   
+    // Змінна з дефолтним значенням назви стікерпаку з клітинки
+    var imagePackName = "Pokemons"
+
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // Виводить індекс клітинки на яку нажимаю
         print("Index of the cell = \(indexPath.item)")
         
+        //TODO: ЯК ПЕРЕДАТИ ЗНАЧЕННЯ СТІКЕРПАКУ?
+        // Виводить конкретну  назву стікерпаку карток
+        //imagePackName = String(imagesPackLabel[indexPath.item])
+        //print(imagePackName)
+        
         // Виводить конкретне значення кількості карток
         cardNumber = Int(levelsPack[indexPath.item])!
-        print(cardNumber)
-        
-        // Виконує перехід на GameVievController
-        performSegue(withIdentifier: "NumberOfCard", sender: self)
+            print(cardNumber)
+            
+            // Виконує перехід на GameViewController
+            performSegue(withIdentifier: "NumberOfCard", sender: self)
         
     }
-    // Надсилає дані з пікера в ViewController
+    // Надсилає дані з клітинки в GameViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "NumberOfCard" {
             let numberOfCardsFromCell = segue.destination as! GameViewController

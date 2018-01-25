@@ -68,9 +68,8 @@
 			children = (
 				4B06D6992019EAA100F60047 /* Main.storyboard */,
 				4B06D6AF201A1BF400F60047 /* Controllers */,
+				4B06D6C5201AA1A100F60047 /* Model */,
 				4B06D6C2201A578C00F60047 /* Cells */,
-				4B06D6BC201A56AF00F60047 /* Card.swift */,
-				4B06D6BE201A56C400F60047 /* CardModel.swift */,
 				4B06D6A42019EAA100F60047 /* Info.plist */,
 				4B06D6AA2019EDFC00F60047 /* Supporting Files */,
 			);
@@ -104,6 +103,15 @@
 				4B06D6C0201A578200F60047 /* CardCollectionViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4B06D6C5201AA1A100F60047 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4B06D6BC201A56AF00F60047 /* Card.swift */,
+				4B06D6BE201A56C400F60047 /* CardModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

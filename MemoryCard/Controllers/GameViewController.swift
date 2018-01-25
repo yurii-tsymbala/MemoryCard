@@ -9,9 +9,10 @@
 import UIKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
+   
+    // Дефолтне значення кількості карток з MenuViewController
     var cardNumbersFromMenuController = 12
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,7 +22,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         cardCollectionView.dataSource = self
     }
 
-    //змінна з меню часом і рахунком
+    // кнопка меню
+    @IBOutlet weak var menuButton: UIButton!
+    
+    // таймер
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    // рахунок
+    @IBOutlet weak var scoreLabel: UILabel!
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
