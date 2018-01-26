@@ -28,17 +28,17 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // Назви стікерпаків
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
-   
+    
     // Картинки стікерпаків
     let imagesPack : [UIImage] = [
         UIImage (named : "pokemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
- ]
-
+    ]
+    
     // Назви рівнів гри
     let levelsPack = [ "12", "16", "18", "24", "28", "30"]
-
+    
     
     // MARK: CollectionView Methods
     
@@ -76,28 +76,30 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     // Змінна з дефолтним значенням карток з клітинки
     var cardNumber = 12
-   
+    
     // Змінна з дефолтним значенням назви стікерпаку з клітинки
     var imagePackName = "Pokemons"
-
+    
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        // Виводить індекс клітинки на яку нажимаю
-        print("Index of the cell = \(indexPath.item)")
-        
-        //TODO: ЯК ПЕРЕДАТИ ЗНАЧЕННЯ СТІКЕРПАКУ?
-        // Виводить конкретну  назву стікерпаку карток
-        //imagePackName = String(imagesPackLabel[indexPath.item])
-        //print(imagePackName)
-        
-        // Виводить конкретне значення кількості карток
-        cardNumber = Int(levelsPack[indexPath.item])!
+        if collectionView == self.imagePackCollectionView {
+            // Виводить конкретну  назву стікерпаку карток
+            imagePackName = String(imagesPackLabel[indexPath.item])
+            print(imagePackName)
+            // Виводить індекс клітинки на яку нажимаю
+            print("Index of the cell = \(indexPath.item)")
+        } else {
+            // Виводить конкретне значення кількості карток
+            cardNumber = Int(levelsPack[indexPath.item])!
             print(cardNumber)
             
             // Виконує перехід на GameViewController
             performSegue(withIdentifier: "NumberOfCard", sender: self)
-        
+            
+            // Виводить індекс клітинки на яку нажимаю
+            print("Index of the cell = \(indexPath.item)")
+        }
     }
     // Надсилає дані з клітинки в GameViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
