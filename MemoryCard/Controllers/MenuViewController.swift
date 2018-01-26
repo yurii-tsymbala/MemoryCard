@@ -31,7 +31,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // Картинки стікерпаків
     let imagesPack : [UIImage] = [
-        UIImage (named : "pokemon")!,
+        UIImage (named : "pockemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
     ]
@@ -104,8 +104,14 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // Надсилає дані з клітинки в GameViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "NumberOfCard" {
+            // Кількість карток буде братись з клітинки Левелів LevelPackCell
             let numberOfCardsFromCell = segue.destination as! GameViewController
             numberOfCardsFromCell.cardNumbersFromMenuController = cardNumber
+            
+            // Назва стікерпаку буде братись з клітинки ImagePackCell
+            let imagePackNameFromCell = segue.destination as! GameViewController
+            imagePackNameFromCell.imagePackLabelFromMenuController = imagePackName
+            
         }
     }
 }

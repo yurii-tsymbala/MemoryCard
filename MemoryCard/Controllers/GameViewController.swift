@@ -12,12 +12,15 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
    
     // Дефолтне значення кількості карток з MenuViewController
     var cardNumbersFromMenuController = 12
+     // Дефолтне значення  назви стікерпаку з MenuViewController
+    var imagePackLabelFromMenuController = "Pokemons"
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
-        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController)
+        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }

@@ -26,29 +26,61 @@ class CardModel { // елемент MVC
      7) додаю другу карточку в масив
      8) повторюємо виконання циклу з наступними парами карток
      */
-    func getCards(cardNumberInModel: Int) -> [Card] {
+    func getCards(cardNumberInModel: Int,imagePackInModel: String) -> [Card] {
         
         var cardArray = [Card]()
         
         // cardNumberInModel - кількість карток, яку я отримую з Picker'а
         // (cardNumberInModel!/2) - кількість пар карток
+        
         for _ in 1...(cardNumberInModel/2) {
             
-            // Створюю рандомне число в межах від 1 до числа фотографій
-            let randomNumber = arc4random_uniform(31)+1
+            // Створюю рандомне число (в межаж від 1 до 30) - це межі картинок з дефолтним стікерпаком "pockemons"
+            let randomNumber = arc4random_uniform(30)+1
+            
             // виводжу в консоль значення, для перевірки на унікальність кожної пари
-            print(randomNumber)
-            
-            // створюю 1 картку з пари
-            let cardOne = Card()
-            // присвоюю картці назву фото,яка знаходиться в assets
-            cardOne.cardPhotoName = "\(randomNumber)"
-            // додаю картку в масив
-            cardArray.append(cardOne)
-            
-            let cardTwo = Card()
-            cardTwo.cardPhotoName = "\(randomNumber)"
-            cardArray.append(cardTwo)
+            print("randomNumber = \(randomNumber)")
+        
+            switch imagePackInModel {
+            case "Food":
+                print("food")
+                
+                // Cтворюю 1 картку з пари
+                let cardOne = Card()
+                
+                // Присвоюю картці назву фото(в межаж від 31 до 61),яка знаходиться в assets.
+                cardOne.cardPhotoName = "\(randomNumber+30)"
+                print("\(randomNumber)")
+                
+                // Додаю картку в масив
+                cardArray.append(cardOne)
+                
+                let cardTwo = Card()
+                cardTwo.cardPhotoName = "\(randomNumber+30)"
+                cardArray.append(cardTwo)
+                
+            case "Cars":
+                
+                let cardOne = Card()
+                // Присвоюю картці назву фото(в межаж від 62 до 92),яка знаходиться в assets
+                cardOne.cardPhotoName = "\(randomNumber+61)"
+                cardArray.append(cardOne)
+                
+                let cardTwo = Card()
+                cardTwo.cardPhotoName = "\(randomNumber+61)"
+                cardArray.append(cardTwo)
+                
+            default:
+                
+                let cardOne = Card()
+                // Присвоюю картці назву фото(в межаж від 1 до 30),яка знаходиться в assets.
+                cardOne.cardPhotoName = "\(randomNumber)"
+                cardArray.append(cardOne)
+        
+                let cardTwo = Card()
+                cardTwo.cardPhotoName = "\(randomNumber)"
+                cardArray.append(cardTwo)
+            }
         }
         
         //MARK: Randoming cards in Array
