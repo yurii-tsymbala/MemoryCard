@@ -38,19 +38,16 @@ class CardModel { // елемент MVC
             // Створюю рандомне число (в межаж від 1 до 30) - це межі картинок з дефолтним стікерпаком "pockemons"
             let randomNumber = arc4random_uniform(30)+1
             
-            // виводжу в консоль значення, для перевірки на унікальність кожної пари
-            print("randomNumber = \(randomNumber)")
-        
+            // Виводжу в консоль рандомну назву фото картки
+            print("RandomNumberOfCardImage = \(randomNumber)")
+            
             switch imagePackInModel {
             case "Food":
-                print("food")
-                
                 // Cтворюю 1 картку з пари
                 let cardOne = Card()
                 
                 // Присвоюю картці назву фото(в межаж від 31 до 61),яка знаходиться в assets.
                 cardOne.cardPhotoName = "\(randomNumber+30)"
-                print("\(randomNumber)")
                 
                 // Додаю картку в масив
                 cardArray.append(cardOne)
@@ -60,7 +57,6 @@ class CardModel { // елемент MVC
                 cardArray.append(cardTwo)
                 
             case "Cars":
-                
                 let cardOne = Card()
                 // Присвоюю картці назву фото(в межаж від 62 до 92),яка знаходиться в assets
                 cardOne.cardPhotoName = "\(randomNumber+61)"
@@ -71,7 +67,6 @@ class CardModel { // елемент MVC
                 cardArray.append(cardTwo)
                 
             default:
-                
                 let cardOne = Card()
                 // Присвоюю картці назву фото(в межаж від 1 до 30),яка знаходиться в assets.
                 cardOne.cardPhotoName = "\(randomNumber)"

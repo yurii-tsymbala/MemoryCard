@@ -72,7 +72,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         case 32:
             size = CGSize(width: screenWidth/4, height: screenHeight/8)
         default:
-           size = CGSize(width: screenWidth/3, height: screenHeight/6)
+            //  Дефолтне значення для 12 карток
+           size = CGSize(width: screenWidth/3, height: screenHeight/4)
          }
         return size
     }
@@ -99,7 +100,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // Виводить індекс клітинки на яку нажимаю
-        print("Index of the cell = \(indexPath.item)")
+        print("IndexOf CardCell = \(indexPath.item)")
         
         // Клітинка, яку вибрав юзер
         let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell

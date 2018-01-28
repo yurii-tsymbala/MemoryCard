@@ -84,21 +84,23 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.imagePackCollectionView {
+            // Виводить індекс клітинки на яку нажимаю
+            print("IndexOf ImagePackCell = \(indexPath.item)")
+            
             // Виводить конкретну  назву стікерпаку карток
             imagePackName = String(imagesPackLabel[indexPath.item])
-            print(imagePackName)
-            // Виводить індекс клітинки на яку нажимаю
-            print("Index of the cell = \(indexPath.item)")
+            print("\(imagePackName) stickerPack Selected ")
+            
         } else {
+            // Виводить індекс клітинки на яку нажимаю
+            print("IndexOf LevelPackCell = \(indexPath.item)")
+            
             // Виводить конкретне значення кількості карток
             cardNumber = Int(levelsPack[indexPath.item])!
-            print(cardNumber)
+            print("NumberOfCards in Level = \(cardNumber)" )
             
             // Виконує перехід на GameViewController
             performSegue(withIdentifier: "NumberOfCard", sender: self)
-            
-            // Виводить індекс клітинки на яку нажимаю
-            print("Index of the cell = \(indexPath.item)")
         }
     }
     // Надсилає дані з клітинки в GameViewController
