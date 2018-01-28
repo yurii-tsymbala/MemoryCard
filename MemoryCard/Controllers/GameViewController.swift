@@ -9,13 +9,13 @@
 import UIKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-   
+    
     // Дефолтне значення кількості карток з MenuViewController
     var cardNumbersFromMenuController = 12
-     // Дефолтне значення  назви стікерпаку з MenuViewController
+    // Дефолтне значення  назви стікерпаку з MenuViewController
     var imagePackLabelFromMenuController = "Pokemons"
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +28,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
-
+    
     // кнопка меню
     @IBOutlet weak var menuButton: UIButton!
     
@@ -38,8 +38,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     var seconds = 0
     
     var timer: Timer?
-    
-    var timerIsOn = false
     
     // MARK: - Timer Methods
     
@@ -53,6 +51,15 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     // рахунок
     @IBOutlet weak var scoreLabel: UILabel!
     
+    // Лічильник кількості невдалих спроб
+    var flipCount = 0 {
+        didSet {
+            // буду рахувати кількість невдалих спроб
+            //заносимо значення в scoreLabel
+            scoreLabel.text = "Score : \(flipCount)"
+        }
+    }
+    
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
     // Екземпляр класу CardModel
@@ -63,13 +70,15 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // Індекс картки, яка була перевернутою перша
     var firstFlippedCardIndex:IndexPath?
-
+    
     // MARK: - CollectionView Methods
     
     // Повертає розмір клітики залежно від кількості карток
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         // Ширина CollectionView
         let screenWidth = Int(cardCollectionView.frame.width)
+        
         //  Висота CollectionView
         let screenHeight = Int(cardCollectionView.frame.height)
         
@@ -92,8 +101,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             size = CGSize(width: screenWidth/4, height: screenHeight/8)
         default:
             //  Дефолтне значення для 12 карток
-           size = CGSize(width: screenWidth/3, height: screenHeight/4)
-         }
+            size = CGSize(width: screenWidth/3, height: screenHeight/4)
+        }
         return size
     }
     
@@ -107,8 +116,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // створюю клітинку
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
+        
         // створюю картку
         let card = cardArray[indexPath.row]
+        
         // присвоюю клітинці цю картку
         cell.setCard(card)
         
@@ -185,8 +196,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             // якщо картки різні
         } else {
             
-            //TODO:!!!
-           // flipCount += 1 // додаю невдалу спробу
+            flipCount += 1 // додаю невдалу спробу
             
             //статус двох карт
             cardOne.isFlipped = false
