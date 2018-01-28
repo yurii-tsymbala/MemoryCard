@@ -19,12 +19,15 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         super.viewDidLoad()
     }
     
-    // Текст : "Choose Image Pack"
+    // "Choose Image Pack" label
     @IBOutlet weak var imageLabel: UILabel!
     
     @IBOutlet weak var imagePackCollectionView: UICollectionView!
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
+    
+    // "Earned coins" label
+    @IBOutlet weak var coinLabel: UILabel!
     
     // Назви стікерпаків
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
