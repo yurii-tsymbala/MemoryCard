@@ -21,6 +21,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
+        
+        // Створюю таймер
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
+        
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
@@ -30,6 +34,21 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // таймер
     @IBOutlet weak var timerLabel: UILabel!
+    
+    var seconds = 0
+    
+    var timer: Timer?
+    
+    var timerIsOn = false
+    
+    // MARK: - Timer Methods
+    
+    @objc func timerElapsed() {
+        // Додаємо 1 секунду
+        seconds += 1
+        // Заносимо значення в label
+        timerLabel.text = "Time : \(seconds)"
+    }
     
     // рахунок
     @IBOutlet weak var scoreLabel: UILabel!
