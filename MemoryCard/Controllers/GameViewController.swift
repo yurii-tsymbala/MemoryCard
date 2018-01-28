@@ -49,14 +49,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     // рахунок
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var flipCountLabel: UILabel!
     
     // Лічильник кількості невдалих спроб
     var flipCount = 0 {
         didSet {
             // буду рахувати кількість невдалих спроб
-            //заносимо значення в scoreLabel
-            scoreLabel.text = "Score : \(flipCount)"
+            //заносимо значення в flipCountLabel
+            flipCountLabel.text = "Tries : \(flipCount)"
         }
     }
     
