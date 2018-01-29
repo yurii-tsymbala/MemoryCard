@@ -192,6 +192,9 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 // ? - якшо буде ніл то не крашниться програма
                 cardOneCell?.removeFromSuperview()
                 cardTwoCell?.removeFromSuperview()
+                
+                // перевіряю чи залишились невідкриті картки в грі
+                self.checkGameEnded()
             }
             // якщо картки різні
         } else {
@@ -212,5 +215,24 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
         //  cкидує дані, шо перша картка перевернута
         firstFlippedCardIndex = nil
+    }
+    
+    // Перевіряє чи залишились картки в грі
+    func checkGameEnded(){
+        
+        var isWon = true
+        
+        // Перевіряю чи залишились невиявлевні картки - проходжу кожну карточку через масив
+        for card in cardArray {
+            if card.isMatched == false{
+                isWon = false
+                break
+            }
+        }
+        
+        //Якщо не залишилось карток - зупиняю таймер і викликаю попапвю
+        if isWon == true {
+           timer?.invalidate()
+        }
     }
 }
