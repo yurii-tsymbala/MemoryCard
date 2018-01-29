@@ -44,7 +44,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     @objc func timerElapsed() {
         // Додаємо 1 секунду
         seconds += 1
-        // Заносимо значення в label
+        // Заносимо значення часу в label
         timerLabel.text = "Time : \(seconds)"
     }
     
@@ -233,6 +233,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         //Якщо не залишилось карток - зупиняю таймер і викликаю попапвю
         if isWon == true {
            timer?.invalidate()
+            
+            // Потрібно передати в попапвю :
+            // - час
+            // - кількість спроб
         }
     }
 }
