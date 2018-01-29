@@ -30,7 +30,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     // кнопка меню
-    @IBOutlet weak var menuButton: UIButton!
+    @IBAction func menuButton(_ sender: UIButton) {
+    }
     
     // таймер
     @IBOutlet weak var timerLabel: UILabel!

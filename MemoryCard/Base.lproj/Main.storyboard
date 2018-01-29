@@ -205,7 +205,8 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" id="nfM-jD-lcg"/>
+                                    <action selector="menuButton:" destination="Vy4-Ga-XEh" eventType="touchUpInside" id="rcT-nC-ltR"/>
+                                    <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" id="Pjv-Tx-JHH"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNP-5E-iWk">
@@ -231,7 +232,6 @@
                     <connections>
                         <outlet property="cardCollectionView" destination="94h-l9-DSt" id="uLN-Vc-kAd"/>
                         <outlet property="flipCountLabel" destination="iMg-gL-KdO" id="Tmi-AZ-OpE"/>
-                        <outlet property="menuButton" destination="tYg-Oh-Aiy" id="mya-mA-8JB"/>
                         <outlet property="timerLabel" destination="zNP-5E-iWk" id="IXW-jZ-R0h"/>
                     </connections>
                 </viewController>
