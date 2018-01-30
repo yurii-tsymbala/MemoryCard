@@ -68,6 +68,17 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Присвоюю надпис в клітинці
             cell.nameOfImagePackView.text = imagesPackLabel[indexPath.item]
             
+            //Дизайн клітинок
+            cell.alpha = 0
+            cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+            UIView.animate(withDuration: 0.6, animations: { () -> Void in
+                cell.alpha = 1
+                cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+            })
+            cell.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+            cell.layer.cornerRadius = 15
+            cell.layer.borderWidth = 2
+            
             return cell
         } else {
             // Створюю клітинку і присвоюю її власний клас
@@ -76,9 +87,15 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.numberOfLevel.text = "\(levelsPack[indexPath.item]) cards"
             cell.scoreOfLevel.text = "Best score : -- tries"
             cell.timeOfLevel.text = "Best time : -- sec"
-            
+                        
             //Дизайн клітинок
-            cell.backgroundColor = UIColor.lightGray
+            cell.alpha = 0
+            cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+            UIView.animate(withDuration: 0.8, animations: { () -> Void in
+                cell.alpha = 1
+                cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+            })
+            cell.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
             cell.layer.cornerRadius = 50
             cell.layer.borderWidth = 3
             
@@ -111,8 +128,20 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             print("NumberOfCards in Level = \(cardNumber)" )
             
             // Виконує перехід на GameViewController
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
+            }
             performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
+    }
+    // Animation of UICollectionViewCell
+    
+    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: IndexPath) {
+        cell.alpha = 0
+        cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+        UIView.animate(withDuration: 0.4, animations: { () -> Void in
+            cell.alpha = 1
+            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+        })
     }
     // Надсилає дані з клітинки в GameViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
