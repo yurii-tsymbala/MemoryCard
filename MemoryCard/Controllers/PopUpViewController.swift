@@ -28,6 +28,14 @@ class PopUpViewController: UIViewController {
     
     // Returns to Main Menu
     @IBAction func menuButton(_ sender: UIButton) {
+        
+        let controllerIndex = self.navigationController?.viewControllers.index(where: { (viewController) -> Bool in
+            return viewController is MenuViewController
+        })
+        let destination = self.navigationController!.viewControllers[controllerIndex!]
+        self.navigationController?.popToViewController(destination, animated: false)
+        
+        
     }
     
     // Reloads game from start

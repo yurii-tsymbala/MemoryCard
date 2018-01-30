@@ -19,6 +19,18 @@ class PopUpMenuViewController: UIViewController {
     
     // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
+        
+        let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        
+        let startMenuNav = UINavigationController(rootViewController: startMenu)
+        startMenuNav.isNavigationBarHidden = true
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        appDelegate.window?.rootViewController = startMenuNav
+        
+         dismiss(animated: true, completion: nil)
+        
+        
     }
     
     // Reloads game from start
