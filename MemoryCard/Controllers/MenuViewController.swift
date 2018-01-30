@@ -74,7 +74,13 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
             cell.numberOfLevel.text = "\(levelsPack[indexPath.item]) cards"
+            cell.scoreOfLevel.text = "Best score : -- tries"
+            cell.timeOfLevel.text = "Best time : -- sec"
+            
+            //Дизайн клітинок
             cell.backgroundColor = UIColor.lightGray
+            cell.layer.cornerRadius = 50
+            cell.layer.borderWidth = 3
             
             return cell
         }

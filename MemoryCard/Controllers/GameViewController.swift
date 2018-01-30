@@ -15,7 +15,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     // Дефолтне значення  назви стікерпаку з MenuViewController
     var imagePackLabelFromMenuController = "Pokemons"
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -253,10 +252,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             //  переходжу на рекордменю
              performSegue(withIdentifier: "RecordSegue", sender: self)
-            
-            // Потрібно передати в попапвю :
-            // - час
-            // - кількість спроб
         }
     }
     
@@ -267,6 +262,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             // Кількість карток буде братись з клітинки Левелів LevelPackCell
             let timeFromLevel = segue.destination as! PopUpViewController
             timeFromLevel.timeFromGameController = seconds
+            
             
             
             // Назва стікерпаку буде братись з клітинки ImagePackCell
