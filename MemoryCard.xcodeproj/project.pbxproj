@@ -93,10 +93,10 @@
 		4B06D6AF201A1BF400F60047 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4B06D6C3201A57D400F60047 /* GameViewController.swift */,
 				4B06D6AB201A140800F60047 /* MenuViewController.swift */,
-				4B5DE7E1201E3C8800D25CFC /* PopUpViewController.swift */,
+				4B06D6C3201A57D400F60047 /* GameViewController.swift */,
 				4B5DE7E3201E479200D25CFC /* PopUpMenuViewController.swift */,
+				4B5DE7E1201E3C8800D25CFC /* PopUpViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

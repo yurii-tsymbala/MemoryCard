@@ -26,6 +26,8 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
     
+    
+    
     // "Earned coins" label
     @IBOutlet weak var coinLabel: UILabel!
     
@@ -71,7 +73,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Створюю клітинку і присвоюю її власний клас
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
-            cell.numberOfLevel.text = levelsPack[indexPath.item]
+            cell.numberOfLevel.text = "\(levelsPack[indexPath.item]) cards"
             cell.backgroundColor = UIColor.lightGray
             
             return cell

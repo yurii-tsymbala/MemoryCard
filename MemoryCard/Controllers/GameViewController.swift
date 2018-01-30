@@ -259,4 +259,21 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             // - кількість спроб
         }
     }
+    
+   
+    // Надсилає дані (час і кількість спроб ) в PopUpViewController
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+        if segue.identifier == "RecordSegue" {
+            // Кількість карток буде братись з клітинки Левелів LevelPackCell
+            let timeFromLevel = segue.destination as! PopUpViewController
+            timeFromLevel.timeFromGameController = seconds
+            
+            
+            // Назва стікерпаку буде братись з клітинки ImagePackCell
+            let triesFromLevel = segue.destination as! PopUpViewController
+            triesFromLevel.triesFromGameController = flipCount
+            
+        }
+    }
+    
 }

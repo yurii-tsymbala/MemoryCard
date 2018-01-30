@@ -11,8 +11,17 @@ import UIKit
 class PopUpViewController: UIViewController {
     
     override func viewDidLoad() {
+        
+        timeLabel.text = "Time : \(timeFromGameController) seconds"
+        trieLabel.text = "Tries : \(triesFromGameController)"
         super.viewDidLoad()
     }
+    
+    // Час
+    var timeFromGameController = 0
+    
+    // Кількість спроб
+    var triesFromGameController = 0
     
     // "Level completed" label
     @IBOutlet weak var levelNumberLabel: UILabel!
@@ -28,14 +37,15 @@ class PopUpViewController: UIViewController {
     
     // Returns to Main Menu
     @IBAction func menuButton(_ sender: UIButton) {
+        let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         
-        let controllerIndex = self.navigationController?.viewControllers.index(where: { (viewController) -> Bool in
-            return viewController is MenuViewController
-        })
-        let destination = self.navigationController!.viewControllers[controllerIndex!]
-        self.navigationController?.popToViewController(destination, animated: false)
+        let startMenuNav = UINavigationController(rootViewController: startMenu)
+        startMenuNav.isNavigationBarHidden = true
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         
+        appDelegate.window?.rootViewController = startMenuNav
         
+        dismiss(animated: true, completion: nil)
     }
     
     // Reloads game from start

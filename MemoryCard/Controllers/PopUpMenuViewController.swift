@@ -29,8 +29,6 @@ class PopUpMenuViewController: UIViewController {
         appDelegate.window?.rootViewController = startMenuNav
         
          dismiss(animated: true, completion: nil)
-        
-        
     }
     
     // Reloads game from start
