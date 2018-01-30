@@ -28,9 +28,11 @@ class PopUpMenuViewController: UIViewController {
     // Disables pause
     @IBAction func continueButton(_ sender: UIButton) {
     // Pовертає на контролер з грою
+          //timerStart()
           dismiss(animated: true, completion: nil)
-     
-
     }
     
 }
+
+
+

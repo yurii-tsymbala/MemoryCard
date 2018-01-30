@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     // Дефолтне значення кількості карток з MenuViewController
     var cardNumbersFromMenuController = 12
@@ -18,6 +18,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         // Таймер неактивний
         isRunning = false
         
@@ -46,16 +47,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // MARK: - Timer Methods
     
-  
     func timerStart(){
         //Create timer
         if (isRunning == false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
             isRunning = true
         }
-        
     }
-    
+
     @objc func timerElapsed() {
         // Додаємо 1 секунду
         seconds += 1
@@ -248,17 +247,16 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             }
         }
         
-        //Якщо не залишилось карток - зупиняю таймер і викликаю попапвю
+        //Якщо не залишилось карток - зупиняю таймер + викликаю попапвю
         if isWon == true {
            timer?.invalidate()
+            
+            //  переходжу на рекордменю
+             performSegue(withIdentifier: "RecordSegue", sender: self)
             
             // Потрібно передати в попапвю :
             // - час
             // - кількість спроб
         }
     }
-}
-
-protocol TimerActivity {
-    var isRunning: Bool {get set}
 }

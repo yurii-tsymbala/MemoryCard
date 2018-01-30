@@ -233,6 +233,7 @@
                         <outlet property="cardCollectionView" destination="94h-l9-DSt" id="uLN-Vc-kAd"/>
                         <outlet property="flipCountLabel" destination="iMg-gL-KdO" id="Tmi-AZ-OpE"/>
                         <outlet property="timerLabel" destination="zNP-5E-iWk" id="IXW-jZ-R0h"/>
+                        <segue destination="Qlm-0c-HfR" kind="presentation" identifier="RecordSegue" id="ec9-EO-LyF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAc-mr-oAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
