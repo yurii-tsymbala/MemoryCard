@@ -18,19 +18,20 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Таймер неактивний
+        isRunning = false
         
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
-        
-        // Створюю таймер
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
-        
+      
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
     
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
+        timer?.invalidate()
+    
     }
     
     // таймер
@@ -40,7 +41,20 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     var timer: Timer?
     
+    // Таймер не запущений / запущений
+    var isRunning: Bool?
+    
     // MARK: - Timer Methods
+    
+  
+    func timerStart(){
+        //Create timer
+        if (isRunning == false) {
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
+            isRunning = true
+        }
+        
+    }
     
     @objc func timerElapsed() {
         // Додаємо 1 секунду
@@ -129,10 +143,13 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+       
+        // Запускаю таймер
+        timerStart()
+    
         // Виводить індекс клітинки на яку нажимаю
         print("IndexOf CardCell = \(indexPath.item)")
-        
+        isRunning = true
         // Клітинка, яку вибрав юзер
         let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         
@@ -240,4 +257,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             // - кількість спроб
         }
     }
+}
+
+protocol TimerActivity {
+    var isRunning: Bool {get set}
 }
