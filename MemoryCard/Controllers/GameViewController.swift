@@ -51,6 +51,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         if (isRunning == false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
             isRunning = true
+            timer?.isValid
         }
     }
     
@@ -135,6 +136,17 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // присвоюю клітинці цю картку
         cell.setCard(card)
+        
+        
+        //Дизайн клітинок
+        cell.alpha = 0
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+        UIView.animate(withDuration: 0.6, animations: { () -> Void in
+            cell.alpha = 1
+            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+        })
+       // cell.layer.cornerRadius = 15
+       // cell.layer.borderWidth = 2
         
         return cell
     }

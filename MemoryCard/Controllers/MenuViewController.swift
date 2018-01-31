@@ -10,6 +10,9 @@ import UIKit
 
 class MenuViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    //   інфу в клітинки закидувати через кордату
+    // все інше через нотіфікейшн
+    
     override func viewDidLoad() {
         imagePackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
