@@ -47,7 +47,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     ]
     
     // Назви рівнів гри
-    let levelsPack = [ "12", "16", "18", "24", "28", "30"]
+    let levelsPack = [ "12", "16", "18", "24", "28", "30","32"]
     
     
     // MARK: CollectionView Methods
@@ -61,7 +61,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return levelsPack.count
         }
     }
-    
+        
     // Повертає створену клітинку
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         

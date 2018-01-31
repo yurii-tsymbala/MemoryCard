@@ -17,10 +17,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Таймер неактивний
-        isRunning = false
-        
+    
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         
@@ -30,8 +27,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
+        // зупиняє таймер
         timer?.invalidate()
-        
     }
     
     // таймер
@@ -41,17 +38,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     var timer: Timer?
     
-    // Таймер не запущений / запущений
-    var isRunning: Bool?
-    
     // MARK: - Timer Methods
     
     func timerStart(){
+        
         //Create timer
-        if (isRunning == false) {
+        if !(timer?.isValid ?? false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
-            isRunning = true
-            timer?.isValid
+            
         }
     }
     
@@ -145,8 +139,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
-       cell.layer.cornerRadius = 15
-        cell.layer.borderWidth = 2
+      // cell.layer.cornerRadius = 15
+       // cell.layer.borderWidth = 2
         
         return cell
     }
@@ -159,7 +153,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // Виводить індекс клітинки на яку нажимаю
         print("IndexOf CardCell = \(indexPath.item)")
-        isRunning = true
+        
         // Клітинка, яку вибрав юзер
         let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         
