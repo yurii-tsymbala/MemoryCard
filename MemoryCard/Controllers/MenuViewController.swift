@@ -11,18 +11,14 @@ import UIKit
 class MenuViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // інфу в клітинки закидувати через кордату
-    // все інше через нотіфікейшн
     // якшо результат кращий за попередній кнопка фейсбук вискакує
-    //контент моди побавитись для целів і картинок
-    
+
     override func viewDidLoad() {
         imagePackCollectionView.delegate = self
-        imagePackCollectionView.dataSource = self
-        
         levelPackCollectionView.delegate = self
-        imagePackCollectionView.dataSource = self
-        super.viewDidLoad()
         
+        imagePackCollectionView.dataSource = self
+        imagePackCollectionView.dataSource = self
     }
     
     // "Choose Image Pack" label

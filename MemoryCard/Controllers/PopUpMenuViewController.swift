@@ -20,6 +20,7 @@ class PopUpMenuViewController: UIViewController {
     // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
         
+        //TODO: розібратись як працєю
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         
         let startMenuNav = UINavigationController(rootViewController: startMenu)
@@ -40,12 +41,8 @@ class PopUpMenuViewController: UIViewController {
     
     // Disables pause
     @IBAction func continueButton(_ sender: UIButton) {
-    // Pовертає на контролер з грою
-          //timerStart()
+        
+        //виключає попвюконтролер
           dismiss(animated: true, completion: nil)
     }
-    
 }
-
-
-

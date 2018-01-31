@@ -10,19 +10,14 @@ import UIKit
 
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
-    // Дефолтне значення кількості карток з MenuViewController
-    var cardNumbersFromMenuController = 12
-    // Дефолтне значення  назви стікерпаку з MenuViewController
-    var imagePackLabelFromMenuController = "Pokemons"
-    
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        // Викликаю метод з моделі картки, в масив cardArray заносимо картки
+        // викликаємо функцію яка відповідає за передачу карток з моделі
         newGame()
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
+            
             self.newGame()
         }
         
@@ -30,20 +25,28 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         cardCollectionView.dataSource = self
     }
     
-    
-    
+    // Дефолтне значення кількості карток з MenuViewController
+    var cardNumbersFromMenuController = 12
+    // Дефолтне значення  назви стікерпаку з MenuViewController
+    var imagePackLabelFromMenuController = "Pokemons"
+
+    // обнуляє результати гри
     func newGame(){
         
+        // Викликаю метод з моделі картки, в масив cardArray заносимо картки
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         
+        // обнуляю час
         seconds = 0
+        timerLabel.text = "Time : \(seconds)"
+        //обнуляю кількість спроб
         flipCount = 0
+        flipCountLabel.text = "Tries : \(flipCount)"
+        // обновляю вюшку
         cardCollectionView.reloadData()
-        
     }
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
-    
     
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
@@ -65,7 +68,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         //Create timer
         if !(timer?.isValid ?? false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
-            
         }
     }
     
@@ -87,8 +89,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             flipCountLabel.text = "Tries : \(flipCount)"
         }
     }
-    
-    
     
     // Екземпляр класу CardModel
     var model = CardModel()
@@ -150,7 +150,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // присвоюю клітинці цю картку
         cell.setCard(card)
-        
         
         //Дизайн клітинок
         cell.alpha = 0
@@ -281,7 +280,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
-    
     // Надсилає дані (час і кількість спроб ) в PopUpViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "RecordSegue" {
@@ -294,5 +292,4 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             triesFromLevel.triesFromGameController = flipCount
         }
     }
-    
 }

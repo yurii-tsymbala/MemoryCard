@@ -14,7 +14,6 @@ class PopUpViewController: UIViewController {
         
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
-        super.viewDidLoad()
     }
     
     // Час
@@ -51,6 +50,7 @@ class PopUpViewController: UIViewController {
     // Reloads game from start
     @IBAction func retryButton(_ sender: UIButton) {
         
+        // Виконуємо нотіфікейшн
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         
         dismiss(animated: true, completion: nil)
