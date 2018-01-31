@@ -44,7 +44,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     ]
     
     // Назви рівнів гри
-    let levelsPack = [ "12", "16", "18", "24", "28", "30","32"]
+    let levelsPack = [ "12", "16", "18", "24", "28", "30", "32", "36"]
     
     
     // MARK: CollectionView Methods
@@ -88,7 +88,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Створюю клітинку і присвоюю її власний клас
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
-            cell.numberOfLevel.text = "\(levelsPack[indexPath.item]) cards"
+            cell.numberOfLevel.text = levelsPack[indexPath.item]
             cell.scoreOfLevel.text = "Best score : -- tries"
             cell.timeOfLevel.text = "Best time : -- sec"
             

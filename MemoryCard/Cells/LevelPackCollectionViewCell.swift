@@ -16,4 +16,6 @@ class LevelPackCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var timeOfLevel: UILabel!
     
+    @IBOutlet weak var cardIconImage: UIImageView!
+    
 }

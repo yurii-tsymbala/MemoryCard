@@ -127,6 +127,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             size = CGSize(width: screenWidth/5, height: screenHeight/6)
         case 32:
             size = CGSize(width: screenWidth/4, height: screenHeight/8)
+        case 36:
+            size = CGSize(width: screenWidth/6, height: screenHeight/6)
         default:
             //  Дефолтне значення для 12 карток
             size = CGSize(width: screenWidth/3, height: screenHeight/4)
