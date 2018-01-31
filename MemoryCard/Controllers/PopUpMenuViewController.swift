@@ -33,6 +33,9 @@ class PopUpMenuViewController: UIViewController {
     
     // Reloads game from start
     @IBAction func resetButton(_ sender: UIButton) {
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
+        dismiss(animated: true, completion: nil)
     }
     
     // Disables pause

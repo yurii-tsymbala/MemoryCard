@@ -50,6 +50,10 @@ class PopUpViewController: UIViewController {
     
     // Reloads game from start
     @IBAction func retryButton(_ sender: UIButton) {
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
+        
+        dismiss(animated: true, completion: nil)
     }
     
     // Sends user to next level

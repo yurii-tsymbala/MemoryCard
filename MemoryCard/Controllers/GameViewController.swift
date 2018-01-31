@@ -17,13 +17,33 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
-        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
+        newGame()
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
+        { (notification) in
+            self.newGame()
+        }
         
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
+    
+    
+    
+    func newGame(){
+        
+        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
+        
+        seconds = 0
+        flipCount = 0
+        cardCollectionView.reloadData()
+        
+    }
+    
+    @IBOutlet weak var cardCollectionView: UICollectionView!
+    
     
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
@@ -68,7 +88,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         }
     }
     
-    @IBOutlet weak var cardCollectionView: UICollectionView!
+    
     
     // Екземпляр класу CardModel
     var model = CardModel()
@@ -139,8 +159,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
-      // cell.layer.cornerRadius = 15
-       // cell.layer.borderWidth = 2
+        // cell.layer.cornerRadius = 15
+        // cell.layer.borderWidth = 2
         
         return cell
     }

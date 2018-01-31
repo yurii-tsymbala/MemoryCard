@@ -239,7 +239,7 @@
                         <viewLayoutGuide key="safeArea" id="cnp-gG-amr"/>
                     </view>
                     <connections>
-                        <outlet property="cardCollectionView" destination="94h-l9-DSt" id="uLN-Vc-kAd"/>
+                        <outlet property="cardCollectionView" destination="94h-l9-DSt" id="LfB-4X-UdF"/>
                         <outlet property="flipCountLabel" destination="iMg-gL-KdO" id="Tmi-AZ-OpE"/>
                         <outlet property="timerLabel" destination="zNP-5E-iWk" id="IXW-jZ-R0h"/>
                         <segue destination="Qlm-0c-HfR" kind="presentation" identifier="RecordSegue" id="ec9-EO-LyF"/>

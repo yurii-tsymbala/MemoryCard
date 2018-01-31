@@ -10,9 +10,9 @@ import UIKit
 
 class MenuViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    //   інфу в клітинки закидувати через кордату
+    // інфу в клітинки закидувати через кордату
     // все інше через нотіфікейшн
-    //  якшо результат кращий за попередній кнопка фейсбук вискакує
+    // якшо результат кращий за попередній кнопка фейсбук вискакує
     //контент моди побавитись для целів і картинок
     
     override func viewDidLoad() {
@@ -22,6 +22,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
         super.viewDidLoad()
+        
     }
     
     // "Choose Image Pack" label
@@ -86,6 +87,8 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             return cell
         } else {
+            
+            
             // Створюю клітинку і присвоюю її власний клас
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
@@ -129,8 +132,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Виводить індекс клітинки на яку нажимаю
             print("IndexOf ImagePackCell = \(indexPath.item)")
             
-           
-            
             // Виводить конкретну  назву стікерпаку карток
             imagePackName = String(imagesPackLabel[indexPath.item])
             print("\(imagePackName) stickerPack Selected ")
@@ -150,6 +151,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Виконує перехід на GameViewController
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
             }
+            
             performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
     }
