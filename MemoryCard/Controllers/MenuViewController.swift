@@ -12,6 +12,8 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     //   інфу в клітинки закидувати через кордату
     // все інше через нотіфікейшн
+    //  якшо результат кращий за попередній кнопка фейсбук вискакує
+    //контент моди побавитись для целів і картинок
     
     override func viewDidLoad() {
         imagePackCollectionView.delegate = self
