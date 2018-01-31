@@ -7,14 +7,51 @@
 //
 
 import UIKit
+import CoreData
 
 class PopUpViewController: UIViewController {
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record") // назва твоєї схеми (Entity)
+        do {
+            results = try managedContext.fetch(fetchRequest)
+        } catch let err as NSError {
+            print("Failed to fetch items", err)
+        }
+        saveNewResult()
+    }
+    
     
     override func viewDidLoad() {
         
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
     }
+    
+    var results: [NSManagedObject]!
+    
+    func saveNewResult() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let context = appDelegate.persistentContainer.viewContext
+        // передаємо змінні які ми хочемо зберегти в базу
+        let newResult = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context) // назва схеми
+        newResult.setValue(cardsNumberFromGameController, forKey: "cardsNumber") // тут жовтим атрибути в твоїй схемі
+        newResult.setValue(triesFromGameController, forKey: "tries")
+        newResult.setValue(timeFromGameController, forKey: "time")
+        
+        do {
+            try context.save()
+            results.append(newResult)
+        } catch {
+            print("error")
+        }
+    }
+
+    //  Кількість карток
+    var cardsNumberFromGameController = 0
     
     // Час
     var timeFromGameController = 0
@@ -59,5 +96,4 @@ class PopUpViewController: UIViewController {
     // Sends user to next level
     @IBAction func nextLevelButton(_ sender: UIButton) {
     }
-    
 }

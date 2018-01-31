@@ -285,6 +285,12 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     // Надсилає дані (час і кількість спроб ) в PopUpViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "RecordSegue" {
+            
+            
+            let cardsNumberFromLevel = segue.destination as! PopUpViewController
+            // отримую кількість карток з меню контролера
+            cardsNumberFromLevel.cardsNumberFromGameController = cardNumbersFromMenuController
+            
             // Кількість карток буде братись з клітинки Левелів LevelPackCell
             let timeFromLevel = segue.destination as! PopUpViewController
             timeFromLevel.timeFromGameController = seconds
