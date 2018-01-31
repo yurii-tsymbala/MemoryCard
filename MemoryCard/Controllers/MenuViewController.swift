@@ -87,7 +87,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.numberOfLevel.text = "\(levelsPack[indexPath.item]) cards"
             cell.scoreOfLevel.text = "Best score : -- tries"
             cell.timeOfLevel.text = "Best time : -- sec"
-                        
+            
             //Дизайн клітинок
             cell.alpha = 0
             cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
@@ -133,16 +133,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
     }
-    // Animation of UICollectionViewCell
     
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: IndexPath) {
-        cell.alpha = 0
-        cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
-        UIView.animate(withDuration: 0.4, animations: { () -> Void in
-            cell.alpha = 1
-            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
-        })
-    }
     // Надсилає дані з клітинки в GameViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "NumberOfCard" {
@@ -153,7 +144,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             // Назва стікерпаку буде братись з клітинки ImagePackCell
             let imagePackNameFromCell = segue.destination as! GameViewController
             imagePackNameFromCell.imagePackLabelFromMenuController = imagePackName
-            
         }
     }
 }

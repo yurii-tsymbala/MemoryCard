@@ -17,13 +17,13 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         // Таймер неактивний
         isRunning = false
         
         // Викликаю метод з моделі картки, в масив cardArray заносимо картки
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
-      
+        
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
@@ -31,7 +31,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
         timer?.invalidate()
-    
+        
     }
     
     // таймер
@@ -53,7 +53,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             isRunning = true
         }
     }
-
+    
     @objc func timerElapsed() {
         // Додаємо 1 секунду
         seconds += 1
@@ -141,10 +141,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         // Запускаю таймер
         timerStart()
-    
+        
         // Виводить індекс клітинки на яку нажимаю
         print("IndexOf CardCell = \(indexPath.item)")
         isRunning = true
@@ -248,14 +248,14 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         //Якщо не залишилось карток - зупиняю таймер + викликаю попапвю
         if isWon == true {
-           timer?.invalidate()
+            timer?.invalidate()
             
             //  переходжу на рекордменю
-             performSegue(withIdentifier: "RecordSegue", sender: self)
+            performSegue(withIdentifier: "RecordSegue", sender: self)
         }
     }
     
-   
+    
     // Надсилає дані (час і кількість спроб ) в PopUpViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "RecordSegue" {
@@ -263,12 +263,9 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             let timeFromLevel = segue.destination as! PopUpViewController
             timeFromLevel.timeFromGameController = seconds
             
-            
-            
             // Назва стікерпаку буде братись з клітинки ImagePackCell
             let triesFromLevel = segue.destination as! PopUpViewController
             triesFromLevel.triesFromGameController = flipCount
-            
         }
     }
     
