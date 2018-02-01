@@ -290,7 +290,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "RecordSegue" {
             
-            
             let cardsNumberFromLevel = segue.destination as! PopUpViewController
             // отримую кількість карток з меню контролера
             cardsNumberFromLevel.cardsNumberFromGameController = cardNumbersFromMenuController

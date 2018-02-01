@@ -28,8 +28,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
     
-    
-    
     // "Earned coins" label
     @IBOutlet weak var coinLabel: UILabel!
     
@@ -84,7 +82,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return cell
         } else {
             
-            
             // Створюю клітинку і присвоюю її власний клас
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             // Присвоюю надпис в клітинці
@@ -114,8 +111,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    
         
         if collectionView == self.imagePackCollectionView {
             

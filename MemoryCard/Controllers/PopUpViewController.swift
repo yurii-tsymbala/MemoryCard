@@ -48,7 +48,6 @@ class PopUpViewController: UIViewController {
             result.replacementObject
             print("Level with  \(cardsResult) cards , tries: \(tryResult) , time: \(timeResult)")
         }
-        
     }
     
     

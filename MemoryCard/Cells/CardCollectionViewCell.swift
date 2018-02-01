@@ -46,8 +46,6 @@ class CardCollectionViewCell: UICollectionViewCell {
         } else {
             UIView.transition(from: photoCard, to: backgroundCard, duration: 0, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
         }
-        
-        
     }
     // Виконує перевертання  з дефолту на картку з фото
     func flip() {
