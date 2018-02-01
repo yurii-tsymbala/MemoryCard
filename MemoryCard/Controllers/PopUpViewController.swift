@@ -82,17 +82,23 @@ class PopUpViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         for result in results {
             let cardsResult = result.value(forKey: "cardsNumber") as! Int
+            
             if (cardsResult == cardsNumberFromGameController) {
-                
                 let tryResult = result.value(forKey: "tries") as! Int
-                if tryResult > triesFromGameController {
-                    result.setValue(triesFromGameController, forKey: "tries")
-                    levelNumberLabel.text = "tries beated"
-                }
                 let timeResult = result.value(forKey: "time") as! Int
-                if timeResult > timeFromGameController {
+                if tryResult > triesFromGameController && timeResult > timeFromGameController {
+                    
+                    result.setValue(triesFromGameController, forKey: "tries")
                     result.setValue(timeFromGameController, forKey: "time")
-                    levelNumberLabel.text = "time beated"
+                    levelNumberLabel.text = "New best score and time in level"
+                } else if tryResult > triesFromGameController {
+                    
+                    result.setValue(triesFromGameController, forKey: "tries")
+                    levelNumberLabel.text = "New best score in level"
+                } else if timeResult > timeFromGameController {
+                    
+                    result.setValue(timeFromGameController, forKey: "time")
+                    levelNumberLabel.text = "New best time in level"
                 }
             }
         }

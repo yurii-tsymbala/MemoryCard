@@ -130,7 +130,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         } else {
             
             // Змінює колір нажатої клітинки
-              levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+              levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
             
             // Виводить індекс клітинки на яку нажимаю
             print("IndexOf LevelPackCell = \(indexPath.item)")

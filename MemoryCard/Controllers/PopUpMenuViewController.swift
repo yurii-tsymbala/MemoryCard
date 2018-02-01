@@ -11,14 +11,19 @@ import UIKit
 class PopUpMenuViewController: UIViewController {
     
     override func viewDidLoad() {
+    
         super.viewDidLoad()
     }
+    
+    
     
     // "Game is paused" label
     @IBOutlet weak var pauseLabel: UILabel!
     
     // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
+        
+        
         
         //TODO: розібратись як працєю
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
