@@ -46,7 +46,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         cardCollectionView.reloadData()
     }
     
-    @IBOutlet weak var cardCollectionView: UICollectionView!
     
     // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
@@ -89,6 +88,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             flipCountLabel.text = "Tries : \(flipCount)"
         }
     }
+    
+    @IBOutlet weak var cardCollectionView: UICollectionView!
     
     // Екземпляр класу CardModel
     var model = CardModel()
@@ -230,8 +231,13 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             // видаляю карточки які виявлені
             // виконується анімація видалення
+            cardCollectionView.isUserInteractionEnabled = false
+              DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.cardCollectionView.isUserInteractionEnabled = true
+            }
             cardOneCell?.remove()
             cardTwoCell?.remove()
+            
             
             // затримка для виконання анімації
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
@@ -253,8 +259,13 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             cardTwo.isFlipped = false
             
             //повертаю картки в дефолтний стан
+            cardCollectionView.isUserInteractionEnabled = false
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+                self.cardCollectionView.isUserInteractionEnabled = true
+            }
             cardOneCell?.flipback()
             cardTwoCell?.flipback()
+            
         }
         // перезавантажую клітинку першої картки якшо вона nil
         if cardOneCell == nil {
