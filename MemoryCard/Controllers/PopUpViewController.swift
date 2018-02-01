@@ -40,16 +40,15 @@ class PopUpViewController: UIViewController {
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
-         print("Information from Record Database")
+         print("=== Best Records in DB ===")
         for result in results {  // виводить все що збережено в базі
             let tryResult = result.value(forKey: "tries") ?? 0
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let timeResult = result.value(forKey: "time") ?? 0
             result.replacementObject
-            print("Level with  \(cardsResult) cards , tries: \(tryResult) , time: \(timeResult)")
+            print("LEVEL : [\(cardsResult)] cards ||  Tries : [\(tryResult)]  || Time : [\(timeResult)] seconds")
         }
     }
-    
     
     override func viewDidLoad() {
         

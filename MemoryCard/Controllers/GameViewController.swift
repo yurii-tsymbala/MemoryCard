@@ -234,12 +234,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             cardCollectionView.isUserInteractionEnabled = false
               DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 self.cardCollectionView.isUserInteractionEnabled = true
+                cardOneCell?.remove()
+                cardTwoCell?.remove()
             }
-            cardOneCell?.remove()
-            cardTwoCell?.remove()
             
-            
-            // затримка для виконання анімації
+            // затримка для виконання анімації видалення
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 // деактивую тапання по клітинці
                 // ? - якшо буде ніл то не крашниться програма
@@ -260,12 +259,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
             
             //повертаю картки в дефолтний стан
             cardCollectionView.isUserInteractionEnabled = false
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
                 self.cardCollectionView.isUserInteractionEnabled = true
+                cardOneCell?.flipback()
+                cardTwoCell?.flipback()
             }
-            cardOneCell?.flipback()
-            cardTwoCell?.flipback()
-            
         }
         // перезавантажую клітинку першої картки якшо вона nil
         if cardOneCell == nil {
