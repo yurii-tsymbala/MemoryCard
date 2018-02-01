@@ -112,10 +112,10 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkU-mQ-wjj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mkU-mQ-wjj">
                                                     <rect key="frame" x="20" y="15" width="41" height="33"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -148,7 +148,7 @@
                         <outlet property="imageLabel" destination="BHl-7N-SjO" id="QwK-AA-3wa"/>
                         <outlet property="imagePackCollectionView" destination="zSg-yB-vtZ" id="Xjr-vx-Blx"/>
                         <outlet property="levelPackCollectionView" destination="HYx-QY-HM4" id="Lly-Mc-jfp"/>
-                        <segue destination="Vy4-Ga-XEh" kind="show" identifier="NumberOfCard" id="CSX-31-2hR"/>
+                        <segue destination="Vy4-Ga-XEh" kind="presentation" identifier="NumberOfCard" modalTransitionStyle="crossDissolve" id="CSX-31-2hR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -221,7 +221,7 @@
                                         </state>
                                         <connections>
                                             <action selector="menuButton:" destination="Vy4-Ga-XEh" eventType="touchUpInside" id="rcT-nC-ltR"/>
-                                            <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" id="Pjv-Tx-JHH"/>
+                                            <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" modalTransitionStyle="crossDissolve" id="Pjv-Tx-JHH"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNP-5E-iWk">
@@ -257,7 +257,7 @@
                         <outlet property="cardCollectionView" destination="94h-l9-DSt" id="Hfs-zG-H8J"/>
                         <outlet property="flipCountLabel" destination="iMg-gL-KdO" id="Tmi-AZ-OpE"/>
                         <outlet property="timerLabel" destination="zNP-5E-iWk" id="IXW-jZ-R0h"/>
-                        <segue destination="Qlm-0c-HfR" kind="presentation" identifier="RecordSegue" id="ec9-EO-LyF"/>
+                        <segue destination="Qlm-0c-HfR" kind="presentation" identifier="RecordSegue" modalTransitionStyle="crossDissolve" id="ec9-EO-LyF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mAc-mr-oAn" userLabel="First Responder" sceneMemberID="firstResponder"/>
