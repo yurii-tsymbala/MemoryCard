@@ -14,8 +14,6 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var backgroundCard: UIImageView!
     
-    
-    // картка
     var card:Card?
     
     // визначає, яку карточку має вивести cell

@@ -11,6 +11,83 @@ import CoreData
 
 class PopUpViewController: UIViewController {
     
+    override func viewDidLoad() {
+        
+        shareButton.isHidden = true
+        timeLabel.text = "Time : \(timeFromGameController) seconds"
+        trieLabel.text = "Tries : \(triesFromGameController)"
+    }
+    
+    //  Amount of cards
+    var cardsNumberFromGameController = 0
+    
+    //  Wasted time
+    var timeFromGameController = 0
+    
+    // Amount of tries
+    var triesFromGameController = 0
+    
+    // "Level completed" label
+    @IBOutlet weak var levelNumberLabel: UILabel!
+    
+    // Amount of tries wasted in level
+    @IBOutlet weak var trieLabel: UILabel!
+    
+    // Wasted time in level
+    @IBOutlet weak var timeLabel: UILabel!
+    
+    @IBOutlet weak var RecordView: UIView!
+    
+    @IBOutlet weak var shareButton: UIButton!
+    
+    // Shares info about level
+    @IBAction func shareButton(_ sender: UIButton) {
+        
+        let screenForSharing = captureScreen()
+        let activityVC = UIActivityViewController(activityItems: [screenForSharing!], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    func captureScreen() -> UIImage? {
+        let screen = RecordView.window?.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions((screen?.frame.size)!, false, scale);
+        screen?.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        return screenshot
+    }
+    
+    // Amount of coins
+    @IBOutlet weak var coinLabel: UILabel!
+    
+    // Returns to Main Menu
+    @IBAction func menuButton(_ sender: UIButton) {
+        
+        let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        let startMenuNav = UINavigationController(rootViewController: startMenu)
+        startMenuNav.isNavigationBarHidden = true
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = startMenuNav
+        // Removes RecordMenu
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Restarts the level
+    @IBAction func retryButton(_ sender: UIButton) {
+        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Next level of the game
+    @IBAction func nextLevelButton(_ sender: UIButton) {
+        
+        //TODO: nextLevelButton functionality
+    }
+    
+    // MARK: - Core Data methods
+    
     var temp = false
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,30 +108,23 @@ class PopUpViewController: UIViewController {
                 temp = true
             } }
         if (!temp) { //   якшо левел не був пройдений то зберігаємо результат перший раз
-        saveNewResult()
+            saveNewResult()
         } else {
-        saveBestRecordForLevel()
+            saveBestRecordForLevel()
         }
         do {
             results = try managedContext.fetch(fetchRequest)
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
-         print("=== Best Records in DB ===")
-        for result in results {  // виводить все що збережено в базі
+        print("=== Best Records in DB ===")
+        for result in results {  // views all info from database
             let tryResult = result.value(forKey: "tries") ?? 0
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let timeResult = result.value(forKey: "time") ?? 0
             result.replacementObject
-            print("LEVEL : [\(cardsResult)] cards ||  Tries : [\(tryResult)]  || Time : [\(timeResult)] seconds")
+            print("LEVEL : [\(cardsResult)] cards || Tries : [\(tryResult)] fails || Time : [\(timeResult)] seconds")
         }
-    }
-    
-    override func viewDidLoad() {
-        
-        shareButton.isHidden = true
-        timeLabel.text = "Time : \(timeFromGameController) seconds"
-        trieLabel.text = "Tries : \(triesFromGameController)"
     }
     
     var results: [NSManagedObject]!
@@ -63,10 +133,10 @@ class PopUpViewController: UIViewController {
         shareButton.isHidden = false
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let context = appDelegate.persistentContainer.viewContext
-        // передаємо змінні які ми хочемо зберегти в базу
-        let newResult = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context) // назва схеми
         
-        newResult.setValue(cardsNumberFromGameController, forKey: "cardsNumber") // тут жовтим атрибути в твоїй схемі
+        // Sending data to DataBase attributes
+        let newResult = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context)
+        newResult.setValue(cardsNumberFromGameController, forKey: "cardsNumber")
         newResult.setValue(triesFromGameController, forKey: "tries")
         newResult.setValue(timeFromGameController, forKey: "time")
         
@@ -111,77 +181,5 @@ class PopUpViewController: UIViewController {
         } catch {
             print("error")
         }
-        
-    }
-
-    //  Кількість карток
-    var cardsNumberFromGameController = 0
-    
-    // Час
-    var timeFromGameController = 0
-    
-    // Кількість спроб
-    var triesFromGameController = 0
-    
-    // "Level completed" label
-    @IBOutlet weak var levelNumberLabel: UILabel!
-    
-    // Amount of tries wasted in game
-    @IBOutlet weak var trieLabel: UILabel!
-    
-    // Time wasted in game
-    @IBOutlet weak var timeLabel: UILabel!
-    
-    // вюшка з рекордами
-    @IBOutlet weak var RecordView: UIView!
-    
-    
-    @IBOutlet weak var shareButton: UIButton!
-    
-    // поширення в фейсбук
-    @IBAction func shareButton(_ sender: UIButton) {
-        
-        let screenForSharing = captureScreen()
-        let activityVC = UIActivityViewController(activityItems: [screenForSharing!], applicationActivities: nil)
-        activityVC.popoverPresentationController?.sourceView = self.view
-        self.present(activityVC, animated: true, completion: nil)
-    }
-    
-    func captureScreen() -> UIImage? {
-        let screen = RecordView.window?.layer
-        let scale = UIScreen.main.scale
-        UIGraphicsBeginImageContextWithOptions((screen?.frame.size)!, false, scale);
-        screen?.render(in: UIGraphicsGetCurrentContext()!)
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        return screenshot
-    }
-    
-    // Amount of coins
-    @IBOutlet weak var coinLabel: UILabel!
-    
-    // Returns to Main Menu
-    @IBAction func menuButton(_ sender: UIButton) {
-        let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        
-        let startMenuNav = UINavigationController(rootViewController: startMenu)
-        startMenuNav.isNavigationBarHidden = true
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        appDelegate.window?.rootViewController = startMenuNav
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Reloads game from start
-    @IBAction func retryButton(_ sender: UIButton) {
-        
-        // Виконуємо нотіфікейшн
-        NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // Sends user to next level
-    @IBAction func nextLevelButton(_ sender: UIButton) {
     }
 }

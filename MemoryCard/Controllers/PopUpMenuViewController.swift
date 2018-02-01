@@ -10,11 +10,6 @@ import UIKit
 
 class PopUpMenuViewController: UIViewController {
     
-    override func viewDidLoad() {
-    
-        super.viewDidLoad()
-    }
-    
     // "Game is paused" label
     @IBOutlet weak var pauseLabel: UILabel!
     
@@ -23,17 +18,14 @@ class PopUpMenuViewController: UIViewController {
         
         //TODO: розібратись як працєю
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        
         let startMenuNav = UINavigationController(rootViewController: startMenu)
         startMenuNav.isNavigationBarHidden = true
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
         appDelegate.window?.rootViewController = startMenuNav
-        
-         dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    // Reloads game from start
+    // Restarts the level
     @IBAction func resetButton(_ sender: UIButton) {
         
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
@@ -43,7 +35,6 @@ class PopUpMenuViewController: UIViewController {
     // Disables pause
     @IBAction func continueButton(_ sender: UIButton) {
         
-        //виключає попвюконтролер
-          dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
