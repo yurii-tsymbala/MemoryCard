@@ -128,6 +128,11 @@ class PopUpViewController: UIViewController {
     // Time wasted in game
     @IBOutlet weak var timeLabel: UILabel!
     
+    // поширення в фейсбук
+    @IBAction func shareButton(_ sender: UIButton) {
+        
+    }
+    
     // Amount of coins
     @IBOutlet weak var coinLabel: UILabel!
     
