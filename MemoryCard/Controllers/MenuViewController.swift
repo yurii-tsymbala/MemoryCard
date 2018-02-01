@@ -44,7 +44,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     ]
     
     // Назви рівнів гри
-    let levelsPack = [ "12", "16", "18", "24", "28", "30", "32", "36"]
+    let levelsPack = ["8","10", "12", "16", "18", "24", "28", "30", "32", "36"]
     
     
     // MARK: CollectionView Methods

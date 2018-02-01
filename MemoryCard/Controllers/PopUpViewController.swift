@@ -11,17 +11,44 @@ import CoreData
 
 class PopUpViewController: UIViewController {
     
+    var temp = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record") // назва твоєї схеми (Entity)
+        
+        do {
+            results = try managedContext.fetch(fetchRequest) // в резалті знаходться результат з бази
+        } catch let err as NSError {
+            print("Failed to fetch items", err)
+        }
+        // перевіряємо  всі результати  по ключу рівнів-карток
+        for result in results {
+            let cardsResult = result.value(forKey: "cardsNumber") as! Int
+            if (cardsResult == cardsNumberFromGameController) {
+                temp = true
+            } }
+        if (!temp) { //   якшо левел не був пройдений то зберігаємо результат перший раз
+        saveNewResult()
+        } else {
+        saveBestRecordForLevel()
+        }
         do {
             results = try managedContext.fetch(fetchRequest)
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
-        saveNewResult()
+         print("Information from Record Database")
+        for result in results {  // виводить все що збережено в базі
+            let tryResult = result.value(forKey: "tries") ?? 0
+            let cardsResult = result.value(forKey: "cardsNumber") ?? 0
+            let timeResult = result.value(forKey: "time") ?? 0
+            result.replacementObject
+            print("Level with  \(cardsResult) cards , tries: \(tryResult) , time: \(timeResult)")
+        }
+        
     }
     
     
@@ -38,6 +65,7 @@ class PopUpViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         // передаємо змінні які ми хочемо зберегти в базу
         let newResult = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context) // назва схеми
+        
         newResult.setValue(cardsNumberFromGameController, forKey: "cardsNumber") // тут жовтим атрибути в твоїй схемі
         newResult.setValue(triesFromGameController, forKey: "tries")
         newResult.setValue(timeFromGameController, forKey: "time")
@@ -48,6 +76,33 @@ class PopUpViewController: UIViewController {
         } catch {
             print("error")
         }
+    }
+    
+    func saveBestRecordForLevel(){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let context = appDelegate.persistentContainer.viewContext
+        for result in results {
+            let cardsResult = result.value(forKey: "cardsNumber") as! Int
+            if (cardsResult == cardsNumberFromGameController) {
+                
+                let tryResult = result.value(forKey: "tries") as! Int
+                if tryResult > triesFromGameController {
+                    result.setValue(triesFromGameController, forKey: "tries")
+                    levelNumberLabel.text = "tries beated"
+                }
+                let timeResult = result.value(forKey: "time") as! Int
+                if timeResult > timeFromGameController {
+                    result.setValue(timeFromGameController, forKey: "time")
+                    levelNumberLabel.text = "time beated"
+                }
+            }
+        }
+        do {
+            try context.save()
+        } catch {
+            print("error")
+        }
+        
     }
 
     //  Кількість карток

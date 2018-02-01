@@ -115,6 +115,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         // В залежності від кількості карток повертаю різні розміри клітинки
         switch cardNumbersFromMenuController {
+        case 10:
+            size = CGSize(width: screenWidth/2, height: screenHeight/5)
+        case 12:
+            size = CGSize(width: screenWidth/3, height: screenHeight/4)
         case 16:
             size = CGSize(width: screenWidth/4, height: screenHeight/4)
         case 18:
@@ -130,8 +134,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         case 36:
             size = CGSize(width: screenWidth/6, height: screenHeight/6)
         default:
-            //  Дефолтне значення для 12 карток
-            size = CGSize(width: screenWidth/3, height: screenHeight/4)
+            //  Дефолтне значення для 8 карток
+            size = CGSize(width: screenWidth/2, height: screenHeight/4)
         }
         return size
     }
