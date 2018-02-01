@@ -163,9 +163,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="94h-l9-DSt">
-                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="94h-l9-DSt">
+                                <rect key="frame" x="0.0" y="58" width="320" height="510"/>
                                 <color key="backgroundColor" red="1" green="0.95378526390057949" blue="0.43146533446350666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="tq1-E2-Et8">
                                     <size key="itemSize" width="75" height="75"/>
@@ -210,37 +209,48 @@
                                     <outlet property="delegate" destination="Vy4-Ga-XEh" id="qsZ-HO-fNb"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYg-Oh-Aiy">
-                                <rect key="frame" x="0.0" y="20" width="78" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <state key="normal" title="Menu">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="menuButton:" destination="Vy4-Ga-XEh" eventType="touchUpInside" id="rcT-nC-ltR"/>
-                                    <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" id="Pjv-Tx-JHH"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNP-5E-iWk">
-                                <rect key="frame" x="78" y="20" width="130" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="0.8087007705479452" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tries : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMg-gL-KdO">
-                                <rect key="frame" x="208" y="20" width="112" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="0.59717465753424659" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="qVw-3K-QFT">
+                                <rect key="frame" x="0.0" y="20" width="320" height="38"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tYg-Oh-Aiy">
+                                        <rect key="frame" x="0.0" y="0.0" width="84.5" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Menu">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="menuButton:" destination="Vy4-Ga-XEh" eventType="touchUpInside" id="rcT-nC-ltR"/>
+                                            <segue destination="2uF-Au-0ho" kind="presentation" identifier="MenuSegue" id="Pjv-Tx-JHH"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNP-5E-iWk">
+                                        <rect key="frame" x="84.5" y="0.0" width="120" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="0.8087007705479452" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Tries : 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iMg-gL-KdO">
+                                        <rect key="frame" x="204.5" y="0.0" width="115.5" height="38"/>
+                                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="0.59717465753424659" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.98441392183303833" blue="0.0034517450258135796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="cnp-gG-amr" firstAttribute="trailing" secondItem="94h-l9-DSt" secondAttribute="trailing" id="4kQ-F1-AZz"/>
+                            <constraint firstItem="qVw-3K-QFT" firstAttribute="leading" secondItem="cnp-gG-amr" secondAttribute="leading" id="7sI-t9-n9o"/>
+                            <constraint firstItem="cnp-gG-amr" firstAttribute="trailing" secondItem="qVw-3K-QFT" secondAttribute="trailing" id="CUe-lE-Zqn"/>
+                            <constraint firstItem="qVw-3K-QFT" firstAttribute="top" secondItem="cnp-gG-amr" secondAttribute="top" id="euB-or-qal"/>
+                            <constraint firstItem="94h-l9-DSt" firstAttribute="leading" secondItem="cnp-gG-amr" secondAttribute="leading" id="fv4-wf-e91"/>
+                            <constraint firstItem="94h-l9-DSt" firstAttribute="top" secondItem="qVw-3K-QFT" secondAttribute="bottom" id="mdx-lY-DST"/>
+                            <constraint firstItem="cnp-gG-amr" firstAttribute="bottom" secondItem="94h-l9-DSt" secondAttribute="bottom" id="mpj-Xm-lmk"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="cnp-gG-amr"/>
                     </view>
                     <connections>
