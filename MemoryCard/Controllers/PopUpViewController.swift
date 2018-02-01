@@ -53,6 +53,7 @@ class PopUpViewController: UIViewController {
     
     override func viewDidLoad() {
         
+        shareButton.isHidden = true
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
     }
@@ -60,6 +61,7 @@ class PopUpViewController: UIViewController {
     var results: [NSManagedObject]!
     
     func saveNewResult() {
+        shareButton.isHidden = false
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let context = appDelegate.persistentContainer.viewContext
         // передаємо змінні які ми хочемо зберегти в базу
@@ -91,14 +93,17 @@ class PopUpViewController: UIViewController {
                     result.setValue(triesFromGameController, forKey: "tries")
                     result.setValue(timeFromGameController, forKey: "time")
                     levelNumberLabel.text = "New best score and time in level"
+                    shareButton.isHidden = false
                 } else if tryResult > triesFromGameController {
                     
                     result.setValue(triesFromGameController, forKey: "tries")
                     levelNumberLabel.text = "New best score in level"
+                    shareButton.isHidden = false
                 } else if timeResult > timeFromGameController {
                     
                     result.setValue(timeFromGameController, forKey: "time")
                     levelNumberLabel.text = "New best time in level"
+                    shareButton.isHidden = false
                 }
             }
         }
@@ -128,9 +133,28 @@ class PopUpViewController: UIViewController {
     // Time wasted in game
     @IBOutlet weak var timeLabel: UILabel!
     
+    // вюшка з рекордами
+    @IBOutlet weak var RecordView: UIView!
+    
+    
+    @IBOutlet weak var shareButton: UIButton!
+    
     // поширення в фейсбук
     @IBAction func shareButton(_ sender: UIButton) {
         
+        let screenForSharing = captureScreen()
+        let activityVC = UIActivityViewController(activityItems: [screenForSharing!], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
+    func captureScreen() -> UIImage? {
+        let screen = RecordView.window?.layer
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions((screen?.frame.size)!, false, scale);
+        screen?.render(in: UIGraphicsGetCurrentContext()!)
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        return screenshot
     }
     
     // Amount of coins
