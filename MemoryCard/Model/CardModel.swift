@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CardModel { // елемент MVC
+class CardModel {
     
     /*
      Функція getCards повертає масив(типу Card) карток.
@@ -30,8 +30,8 @@ class CardModel { // елемент MVC
         
         var cardArray = [Card]()
         
-        // cardNumberInModel - кількість карток, яку я отримую з Picker'а
-        // (cardNumberInModel!/2) - кількість пар карток
+        // cardNumberInModel - amount of cards in level
+        // (cardNumberInModel!/2) - amount of pairs of cards
         
         for _ in 1...(cardNumberInModel/2) {
             
@@ -79,12 +79,12 @@ class CardModel { // елемент MVC
         }
         
         //MARK: Randoming cards in Array
+        
         var randomArray = [Card]()
-        // межа рандому == кількість карток
+        // Limit of random = cards in game
         var upperLimit:UInt = UInt(cardNumberInModel)
         var randomlyGeneratedNumber: Int
         
-        // cardNumberInModel - кількість карток
         for _ in 1...(cardNumberInModel) {
             
             randomlyGeneratedNumber = Int(arc4random_uniform(UInt32(upperLimit)))
@@ -92,7 +92,6 @@ class CardModel { // елемент MVC
             cardArray.remove(at: randomlyGeneratedNumber)
             upperLimit -= 1
         }
-        // повертаю масив, в якому знаходяться картки
         return randomArray
     }
 }

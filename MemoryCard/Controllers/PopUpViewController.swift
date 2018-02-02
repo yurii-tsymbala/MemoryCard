@@ -88,7 +88,7 @@ class PopUpViewController: UIViewController {
     
     // MARK: - Core Data methods
     
-    var temp = false
+    var temp = false // dsfsdfsdfsdfsdfsdfsd?????????
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,24 +101,28 @@ class PopUpViewController: UIViewController {
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
-        // перевіряємо  всі результати  по ключу рівнів-карток
+        // Checking result by cardsNumber Key
         for result in results {
             let cardsResult = result.value(forKey: "cardsNumber") as! Int
             if (cardsResult == cardsNumberFromGameController) {
                 temp = true
             } }
-        if (!temp) { //   якшо левел не був пройдений то зберігаємо результат перший раз
+        // If level was not completed = save first result to database
+        if (!temp) {
             saveNewResult()
         } else {
+            // Level already completed -> save new best record
             saveBestRecordForLevel()
         }
+        // Fetching data and printing to console
         do {
             results = try managedContext.fetch(fetchRequest)
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
         print("=== Best Records in DB ===")
-        for result in results {  // views all info from database
+        // Views all info from database
+        for result in results {
             let tryResult = result.value(forKey: "tries") ?? 0
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let timeResult = result.value(forKey: "time") ?? 0
@@ -157,6 +161,7 @@ class PopUpViewController: UIViewController {
             if (cardsResult == cardsNumberFromGameController) {
                 let tryResult = result.value(forKey: "tries") as! Int
                 let timeResult = result.value(forKey: "time") as! Int
+                
                 if tryResult > triesFromGameController && timeResult > timeFromGameController {
                     
                     result.setValue(triesFromGameController, forKey: "tries")

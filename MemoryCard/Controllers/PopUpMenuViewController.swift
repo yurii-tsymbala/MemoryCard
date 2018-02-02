@@ -15,7 +15,6 @@ class PopUpMenuViewController: UIViewController {
     
     // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
-        
         //TODO: розібратись як працєю
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         let startMenuNav = UINavigationController(rootViewController: startMenu)
@@ -27,14 +26,12 @@ class PopUpMenuViewController: UIViewController {
     
     // Restarts the level
     @IBAction func resetButton(_ sender: UIButton) {
-        
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         dismiss(animated: true, completion: nil)
     }
     
     // Disables pause
     @IBAction func continueButton(_ sender: UIButton) {
-        
         dismiss(animated: true, completion: nil)
     }
 }

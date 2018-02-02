@@ -16,64 +16,52 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     var card:Card?
     
-    // визначає, яку карточку має вивести cell
+    // Sets image in the card
     func setCard(_ card:Card){
         
         self.card = card
+        // "card.cardPhotoName" name of the image in assets
+        photoCard.image = UIImage(named: card.cardPhotoName)
+    
+    //Fixed bugs with viewing cards after restart of the level
         
-        // Якщо картка виявлена, роблю фото невидимими
         if card.isMatched == true {
-            
             backgroundCard.alpha = 0
             photoCard.alpha = 0
-            
             return
-            // якщо картка не виявлена, роблю фото видимими
         } else {
-            
             backgroundCard.alpha = 1
             photoCard.alpha = 1
         }
-        photoCard.image = UIImage(named: card.cardPhotoName)
         
-        //перевіряю картку на її стан (перевернута / неперевернута)
         if card.isFlipped == true {
-            //переконуюсь що картинка зверху
             UIView.transition(from: backgroundCard, to: photoCard, duration: 0, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
-            //переконуюсь що картинка знизу
         } else {
             UIView.transition(from: photoCard, to: backgroundCard, duration: 0, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
         }
     }
-    // Виконує перевертання  з дефолту на картку з фото
+    
+    // MARK: - CardCell methods
+    
+    // Flips  from default to card with image
     func flip() {
-        
-        //затримка виконання
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-            //анімація
-            UIView.transition(from: self.backgroundCard, to: self.photoCard, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil) //  duration - час переходу
-        }
+            UIView.transition(from: self.backgroundCard, to: self.photoCard, duration: 0.3, options: [.transitionFlipFromLeft, .showHideTransitionViews], completion: nil)
     }
     
-    // Виконує перевертання в дефолтний стан
+    // Returns to the default status
     func flipback() {
-        
-        // затримка виконання
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
-            //анімація
-            UIView.transition(from: self.photoCard, to: self.backgroundCard, duration: 0.3, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil) // duration - час переходу
+        // Delay for memorization pairs of opened cards
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            UIView.transition(from: self.photoCard, to: self.backgroundCard, duration: 0.3, options: [.transitionFlipFromRight, .showHideTransitionViews], completion: nil)
         }
     }
     
-    // Виконує деактивування видимості зображень на картці
+    // Removes visibility of images on card
     func remove() {
-        
-        // анімація
-        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: { // використовую closure
-            
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: .curveEaseOut, animations: {
+            // using closure
             self.photoCard.alpha = 0
             self.backgroundCard.alpha = 0
-            
         }, completion: nil)
     }
 }

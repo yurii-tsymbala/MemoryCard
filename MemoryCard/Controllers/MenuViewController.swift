@@ -96,7 +96,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
-            cell.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
             cell.layer.cornerRadius = 50
             cell.layer.borderWidth = 3
             
@@ -119,6 +119,8 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             // Змінюю бекграунд levelPackCollectionView
             levelPackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            
             
             // Виводить індекс клітинки на яку нажимаю
             print("IndexOf ImagePackCell = \(indexPath.item)")

@@ -8,10 +8,10 @@
 
 import Foundation
 
-class Card {                 // клас Картка, який я буду використовувати в Моделі
+class Card {
     
-    var cardPhotoName = ""   // назва фотографії, яка буде відображатись на картці
-    var isFlipped = false    // картка перевернута
-    var isMatched = false    // картка виявлена
+    var cardPhotoName = "" // name of the image from assets that will be viewed on card
+    var isFlipped = false
+    var isMatched = false
 }
 
