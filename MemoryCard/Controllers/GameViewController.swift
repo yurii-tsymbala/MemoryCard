@@ -24,7 +24,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     var cardNumbersFromMenuController = 8
     // Дефолтне значення  назви стікерпаку з MenuViewController
     var imagePackLabelFromMenuController = "Pokemons"
-
+    
     // Creats new game
     func newGame(){
         
@@ -92,7 +92,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         let screenHeight = Int(cardCollectionView.frame.height)
         
         var size = CGSize(width: screenWidth/3, height: screenHeight/6)
-    
+        
         switch cardNumbersFromMenuController {
         case 10:
             size = CGSize(width: screenWidth/2, height: screenHeight/5)
@@ -156,7 +156,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         // Card that user selected
         let card = cardArray[indexPath.row]
         
-         print("IndexOf CardCell = \(indexPath.item)")
+        print("IndexOf CardCell = \(indexPath.item)")
         
         // Logic of Cards checking
         if card.isFlipped == false && card.isMatched == false {
@@ -193,30 +193,27 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         //  якшо дві картки однакові
         if cardOne.cardPhotoName == cardTwo.cardPhotoName {
             
-            //cтатус двох карт
             cardOne.isMatched = true
             cardTwo.isMatched = true
             
-            // видаляю карточки які виявлені
-            // виконується анімація видалення
+            // Deleting cards with animation
+            // delay for deleting animation
             cardCollectionView.isUserInteractionEnabled = false
-              DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 self.cardCollectionView.isUserInteractionEnabled = true
                 cardOneCell?.remove()
                 cardTwoCell?.remove()
             }
             
-            // затримка для виконання анімації видалення
+            // delay for deleting animation
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                // деактивую тапання по клітинці
-                // ? - якшо буде ніл то не крашниться програма
+                // Deleting cells
                 cardOneCell?.removeFromSuperview()
                 cardTwoCell?.removeFromSuperview()
                 
-                // перевіряю чи залишились невідкриті картки в грі
+                // checking if any cards are left
                 self.checkGameEnded()
             }
-            // якщо картки різні
         } else {
             
             flipCount += 1 // додаю невдалу спробу
@@ -233,31 +230,26 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 cardTwoCell?.flipback()
             }
         }
-        // перезавантажую клітинку першої картки якшо вона nil
+        // Reloading cell of first flipped card
         if cardOneCell == nil {
             cardCollectionView.reloadItems(at: [firstFlippedCardIndex!])
         }
-        //  cкидує дані, шо перша картка перевернута
+        //  deleting index of first flipped cell"card"
         firstFlippedCardIndex = nil
     }
     
-    // Перевіряє чи залишились картки в грі
+    // Checking if there are no cards left in game
     func checkGameEnded(){
-        
         var isWon = true
-        
-        // Перевіряю чи залишились невиявлевні картки - проходжу кожну карточку через масив
         for card in cardArray {
             if card.isMatched == false{
                 isWon = false
                 break
             }
         }
-        
-        //Якщо не залишилось карток - зупиняю таймер + викликаю попапвю
+        // If there are no cards left : stopping timer+moving to recordview
         if isWon == true {
             timer?.invalidate()
-            
             performSegue(withIdentifier: "RecordSegue", sender: self)
         }
     }
@@ -267,14 +259,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         if segue.identifier == "RecordSegue" {
             
             let cardsNumberFromLevel = segue.destination as! PopUpViewController
-            // отримую кількість карток з меню контролера
             cardsNumberFromLevel.cardsNumberFromGameController = cardNumbersFromMenuController
             
-            // Кількість карток буде братись з клітинки Левелів LevelPackCell
             let timeFromLevel = segue.destination as! PopUpViewController
             timeFromLevel.timeFromGameController = seconds
             
-            // Назва стікерпаку буде братись з клітинки ImagePackCell
             let triesFromLevel = segue.destination as! PopUpViewController
             triesFromLevel.triesFromGameController = flipCount
         }
