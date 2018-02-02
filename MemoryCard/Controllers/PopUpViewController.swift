@@ -12,7 +12,6 @@ import CoreData
 class PopUpViewController: UIViewController {
     
     override func viewDidLoad() {
-        
         shareButton.isHidden = true
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
@@ -75,7 +74,6 @@ class PopUpViewController: UIViewController {
     
     // Restarts the level
     @IBAction func retryButton(_ sender: UIButton) {
-        
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         dismiss(animated: true, completion: nil)
     }
@@ -126,7 +124,6 @@ class PopUpViewController: UIViewController {
             let tryResult = result.value(forKey: "tries") ?? 0
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let timeResult = result.value(forKey: "time") ?? 0
-            result.replacementObject
             print("LEVEL : [\(cardsResult)] cards || Tries : [\(tryResult)] fails || Time : [\(timeResult)] seconds")
         }
     }
