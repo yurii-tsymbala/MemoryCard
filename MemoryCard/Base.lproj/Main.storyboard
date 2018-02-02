@@ -23,10 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zSg-yB-vtZ">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zSg-yB-vtZ">
                                 <rect key="frame" x="0.0" y="60" width="320" height="132"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.46343195799684844" green="1" blue="0.48357917066216971" alpha="0.59717465753424659" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.83482709390862941" green="0.6688443568762622" blue="0.13419536389976358" alpha="0.59717465753424659" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vy3-ME-GBZ">
                                     <size key="itemSize" width="95" height="123"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -34,7 +34,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImagePackCell" id="hbG-EN-wwX" customClass="ImagePackCollectionViewCell" customModule="MemoryCard" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="ImagePackCell" id="hbG-EN-wwX" customClass="ImagePackCollectionViewCell" customModule="MemoryCard" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="95" height="123"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">

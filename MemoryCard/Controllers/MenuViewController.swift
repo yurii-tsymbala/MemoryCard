@@ -75,7 +75,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
-            cell.backgroundColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+            cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
             cell.layer.cornerRadius = 15
             cell.layer.borderWidth = 2
             
