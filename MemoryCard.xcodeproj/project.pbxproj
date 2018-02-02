@@ -72,8 +72,7 @@
 		4B06D6942019EAA100F60047 /* MemoryCard */ = {
 			isa = PBXGroup;
 			children = (
-				4B06D6992019EAA100F60047 /* Main.storyboard */,
-				4B1E36E120244743009ADFB1 /* Launch Screen.storyboard */,
+				4B1E36E32024552B009ADFB1 /* Views */,
 				4B06D6AF201A1BF400F60047 /* Controllers */,
 				4B06D6C5201AA1A100F60047 /* Model */,
 				4B06D6C2201A578C00F60047 /* Cells */,
@@ -121,6 +120,15 @@
 				4B06D6BE201A56C400F60047 /* CardModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		4B1E36E32024552B009ADFB1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4B1E36E120244743009ADFB1 /* Launch Screen.storyboard */,
+				4B06D6992019EAA100F60047 /* Main.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
