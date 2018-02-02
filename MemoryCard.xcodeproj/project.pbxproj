@@ -72,11 +72,11 @@
 		4B06D6942019EAA100F60047 /* MemoryCard */ = {
 			isa = PBXGroup;
 			children = (
+				4B06D6A42019EAA100F60047 /* Info.plist */,
 				4B1E36E32024552B009ADFB1 /* Views */,
 				4B06D6AF201A1BF400F60047 /* Controllers */,
 				4B06D6C5201AA1A100F60047 /* Model */,
 				4B06D6C2201A578C00F60047 /* Cells */,
-				4B06D6A42019EAA100F60047 /* Info.plist */,
 				4B06D6AA2019EDFC00F60047 /* Supporting Files */,
 			);
 			path = MemoryCard;

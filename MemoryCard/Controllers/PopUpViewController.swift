@@ -86,7 +86,7 @@ class PopUpViewController: UIViewController {
     
     // MARK: - Core Data methods
     
-    var temp = false // dsfsdfsdfsdfsdfsdfsd?????????
+    var firstTryOfLevel = false
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -103,10 +103,10 @@ class PopUpViewController: UIViewController {
         for result in results {
             let cardsResult = result.value(forKey: "cardsNumber") as! Int
             if (cardsResult == cardsNumberFromGameController) {
-                temp = true
+                firstTryOfLevel = true
             } }
         // If level was not completed = save first result to database
-        if (!temp) {
+        if (!firstTryOfLevel) {
             saveNewResult()
         } else {
             // Level already completed -> save new best record
