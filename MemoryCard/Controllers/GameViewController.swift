@@ -11,49 +11,39 @@ import UIKit
 class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     override func viewDidLoad() {
-        
-        // викликаємо функцію яка відповідає за передачу карток з моделі
         newGame()
-        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
-            
             self.newGame()
         }
-        
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
     
     // Дефолтне значення кількості карток з MenuViewController
-    var cardNumbersFromMenuController = 12
+    var cardNumbersFromMenuController = 8
     // Дефолтне значення  назви стікерпаку з MenuViewController
     var imagePackLabelFromMenuController = "Pokemons"
 
-    // обнуляє результати гри
+    // Creats new game
     func newGame(){
         
-        // Викликаю метод з моделі картки, в масив cardArray заносимо картки
+        // Entering in cardArray cards from CardModel
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         
-        // обнуляю час
         seconds = 0
         timerLabel.text = "Time : \(seconds)"
-        //обнуляю кількість спроб
         flipCount = 0
         flipCountLabel.text = "Tries : \(flipCount)"
-        // обновляю вюшку
+        // Updating view
         cardCollectionView.reloadData()
     }
     
-    
-    // кнопка меню
     @IBAction func menuButton(_ sender: UIButton) {
-        // зупиняє таймер
+        // stops timer
         timer?.invalidate()
     }
     
-    // таймер
     @IBOutlet weak var timerLabel: UILabel!
     
     var seconds = 0
@@ -71,50 +61,38 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     }
     
     @objc func timerElapsed() {
-        // Додаємо 1 секунду
         seconds += 1
-        // Заносимо значення часу в label
         timerLabel.text = "Time : \(seconds)"
     }
     
-    // рахунок
     @IBOutlet weak var flipCountLabel: UILabel!
     
-    // Лічильник кількості невдалих спроб
+    // When flipCount changes -> didset works
     var flipCount = 0 {
         didSet {
-            // буду рахувати кількість невдалих спроб
-            //заносимо значення в flipCountLabel
             flipCountLabel.text = "Tries : \(flipCount)"
         }
     }
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
-    // Екземпляр класу CardModel
     var model = CardModel()
     
-    // Масив карток
     var cardArray = [Card]()
     
-    // Індекс картки, яка була перевернутою перша
+    // Index of the card that was flipped first
     var firstFlippedCardIndex:IndexPath?
     
     // MARK: - CollectionView Methods
     
-    // Повертає розмір клітики залежно від кількості карток
+    // Returns the size of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        // Ширина CollectionView
         let screenWidth = Int(cardCollectionView.frame.width)
-        
-        //  Висота CollectionView
         let screenHeight = Int(cardCollectionView.frame.height)
         
-        //Задаємо розміри(ширину/висоту) клітинці
         var size = CGSize(width: screenWidth/3, height: screenHeight/6)
-        
-        // В залежності від кількості карток повертаю різні розміри клітинки
+    
         switch cardNumbersFromMenuController {
         case 10:
             size = CGSize(width: screenWidth/2, height: screenHeight/5)
@@ -135,74 +113,64 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         case 36:
             size = CGSize(width: screenWidth/6, height: screenHeight/6)
         default:
-            //  Дефолтне значення для 8 карток
+            //  Default value for 8 cards
             size = CGSize(width: screenWidth/2, height: screenHeight/4)
         }
         return size
     }
     
-    // Повертає кількість клітинок
+    // Returns number of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cardArray.count
     }
     
-    // Повертає створену клітинку
+    // Returns created cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        // створюю клітинку
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
         
-        // створюю картку
+        // Creating the card
         let card = cardArray[indexPath.row]
         
-        // присвоюю клітинці цю картку
+        // Entering card to the cell
         cell.setCard(card)
         
-        //Дизайн клітинок
+        // Design of CardCell
         cell.alpha = 0
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
         UIView.animate(withDuration: 0.6, animations: { () -> Void in
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
-        // cell.layer.cornerRadius = 15
-        // cell.layer.borderWidth = 2
-        
         return cell
     }
     
-    // Визначає клітинку, на яку нажато
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        // Запускаю таймер
+        // Starting the timer when cell selected
         timerStart()
         
-        // Виводить індекс клітинки на яку нажимаю
-        print("IndexOf CardCell = \(indexPath.item)")
-        
-        // Клітинка, яку вибрав юзер
+        // Cell that user selected
         let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
         
-        // Картка, яку вибрав юзер
+        // Card that user selected
         let card = cardArray[indexPath.row]
         
-        // Якшо картка в дефолті + не виявлена
+         print("IndexOf CardCell = \(indexPath.item)")
+        
+        // Logic of Cards checking
         if card.isFlipped == false && card.isMatched == false {
             
-            // Перевертаю картку
+            // Flipping selected card
             cell.flip()
-            
-            // Вказую шо картка перевернута
             card.isFlipped = true
             
-            // Визначаю, яка картка перевернулась першою
+            // Checking wich card turns first
             if firstFlippedCardIndex == nil {
                 
-                // перша картка, яка перевернулась
+                // setting index to firstFlippedCard
                 firstFlippedCardIndex = indexPath
             } else {
-                // друга картка яка перевернулась
-                // викликаю метод з логікою виявлення карток
                 checkForMatches(indexPath)
             }
         }
@@ -210,7 +178,7 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     //MARK: Game Logic Methods
     
-    // Перевіряє картки на однаковість
+    // Checking the cards for matching
     func checkForMatches(_ secondFlippedCardIndex:IndexPath) {
         
         // створюю клітинки для двох карток які відкрив
@@ -290,12 +258,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         if isWon == true {
             timer?.invalidate()
             
-            //  переходжу на рекордменю
             performSegue(withIdentifier: "RecordSegue", sender: self)
         }
     }
     
-    // Надсилає дані (час і кількість спроб ) в PopUpViewController
+    // Sends data (time and tries) to PopUpViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "RecordSegue" {
             

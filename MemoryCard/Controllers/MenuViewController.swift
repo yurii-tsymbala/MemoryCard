@@ -12,11 +12,10 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     // інфу в клітинки закидувати через кордату
     // якшо результат кращий за попередній кнопка фейсбук вискакує
-
+    
     override func viewDidLoad() {
         imagePackCollectionView.delegate = self
         levelPackCollectionView.delegate = self
-        
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
     }
@@ -31,44 +30,42 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     // "Earned coins" label
     @IBOutlet weak var coinLabel: UILabel!
     
-    // Назви стікерпаків
+    // Array of imagePacks
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
-    // Картинки стікерпаків
+    // Images of imagePacks
     let imagesPack : [UIImage] = [
         UIImage (named : "pockemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
     ]
     
-    // Назви рівнів гри
+    // Array of numberOfCards = "Levels"
     let levelsPack = ["8","10", "12", "16", "18", "24", "28", "30", "32", "36"]
-    
     
     // MARK: CollectionView Methods
     
-    // Повертає кількість клітинок в CollectionView
+    // Returns amount of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         if collectionView == self.imagePackCollectionView {
             return imagesPackLabel.count
         } else {
             return levelsPack.count
         }
     }
-        
-    // Повертає створену клітинку
+    
+    // Returns created cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == self.imagePackCollectionView {
-            // Створюю клітинку і присвоюю її власний клас
+            // Creating imagePackCell
             let cell: ImagePackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePackCell", for: indexPath) as! ImagePackCollectionViewCell
-            // Присвоюю фото в  клітинці
+            // Adding image of imagePack in cell
             cell.imagePackView.image = imagesPack[indexPath.item]
-            // Присвоюю надпис в клітинці
+            // Adding name of imagePack in cell
             cell.nameOfImagePackView.text = imagesPackLabel[indexPath.item]
             
-            //Дизайн клітинок
+            // Design of imagePackCell
             cell.alpha = 0
             cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
             UIView.animate(withDuration: 0.6, animations: { () -> Void in
@@ -82,14 +79,12 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return cell
         } else {
             
-            // Створюю клітинку і присвоюю її власний клас
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
-            // Присвоюю надпис в клітинці
             cell.numberOfLevel.text = levelsPack[indexPath.item]
             cell.scoreOfLevel.text = "Best score : -- tries"
             cell.timeOfLevel.text = "Best time : -- sec"
             
-            //Дизайн клітинок
+            // Design of levelPackCell
             cell.alpha = 0
             cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
             UIView.animate(withDuration: 0.8, animations: { () -> Void in
@@ -103,60 +98,50 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
     }
-    // Змінна з дефолтним значенням карток з клітинки
-    var cardNumber = 12
+    // Default value of cardNumber
+    var cardNumber = 8
     
-    // Змінна з дефолтним значенням назви стікерпаку з клітинки
+    // Default value of imagePackName
     var imagePackName = "Pokemons"
     
-    // Визначає клітинку, на яку нажато
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.imagePackCollectionView {
             
-            // Змінює колір нажатої клітинки
-             imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            // Changes color of imageCardCell
+            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
             
-            // Змінюю бекграунд levelPackCollectionView
+            // Changes background of views
             levelPackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
             imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
             
-            
-            // Виводить індекс клітинки на яку нажимаю
-            print("IndexOf ImagePackCell = \(indexPath.item)")
-            
-            // Виводить конкретну  назву стікерпаку карток
+            // Saves name of imagePack from imagePackCell
             imagePackName = String(imagesPackLabel[indexPath.item])
             print("\(imagePackName) stickerPack Selected ")
+            print("IndexOf ImagePackCell = \(indexPath.item)")
             
         } else {
             
-            // Змінює колір нажатої клітинки
-              levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            // Changes color of levelCardCell
+            levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
             
-            // Виводить індекс клітинки на яку нажимаю
-            print("IndexOf LevelPackCell = \(indexPath.item)")
-            
-            // Виводить конкретне значення кількості карток
+            // Saves numberOfCards from levelPackCell
             cardNumber = Int(levelsPack[indexPath.item])!
-            print("NumberOfCards in Level = \(cardNumber)" )
-            
-            // Виконує перехід на GameViewController
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 5) {
-            }
+            print("NumberOfCards in Level = \(cardNumber)")
+            print("IndexOf LevelPackCell = \(indexPath.item)")
             
             performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
     }
     
-    // Надсилає дані з клітинки в GameViewController
+    // Sends data from cell to GameViewController by segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "NumberOfCard" {
-            // Кількість карток буде братись з клітинки Левелів LevelPackCell
+            
             let numberOfCardsFromCell = segue.destination as! GameViewController
             numberOfCardsFromCell.cardNumbersFromMenuController = cardNumber
             
-            // Назва стікерпаку буде братись з клітинки ImagePackCell
             let imagePackNameFromCell = segue.destination as! GameViewController
             imagePackNameFromCell.imagePackLabelFromMenuController = imagePackName
         }
