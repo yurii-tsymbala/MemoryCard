@@ -7,17 +7,28 @@
 //
 
 import UIKit
+import CoreData
 
 class MenuViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // інфу в клітинки закидувати через кордату
-    // якшо результат кращий за попередній кнопка фейсбук вискакує
+    var results: [NSManagedObject]!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         imagePackCollectionView.delegate = self
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
+        
+        do {
+            results = try managedContext.fetch(fetchRequest)
+        } catch let err as NSError {
+            print("Failed to fetch items", err)
+        }
     }
     
     // "Choose Image Pack" label
@@ -41,7 +52,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     ]
     
     // Array of numberOfCards = "Levels"
-    let levelsPack = ["8","10", "12", "16", "18", "24", "28", "30", "32", "36"]
+    let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40"]
     
     // MARK: CollectionView Methods
     
@@ -81,8 +92,19 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
             cell.numberOfLevel.text = levelsPack[indexPath.item]
-            cell.scoreOfLevel.text = "Best score : -- tries"
-            cell.timeOfLevel.text = "Best time : -- sec"
+            cell.scoreOfLevel.text = "Best score: -- tries"
+            cell.timeOfLevel.text = "Best time: -- sec"
+            
+            for result in results {
+                let tryResult = result.value(forKey: "tries") ?? 0
+                let cardsResult = "\(result.value(forKey: "cardsNumber") ?? "0")"
+                let timeResult = result.value(forKey: "time") ?? 0
+                if cardsResult == levelsPack[indexPath.item] {
+                    cell.scoreOfLevel.text = "Best score: \(tryResult) tries"
+                    cell.timeOfLevel.text = "Best time: \(timeResult) sec"
+                }
+                
+            }
             
             // Design of levelPackCell
             cell.alpha = 0
@@ -91,7 +113,17 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
+            
+            if indexPath.row < (results.count) {
+                cell.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+                cell.isUserInteractionEnabled = true
+            } else if indexPath.row == results.count{
+                cell.isUserInteractionEnabled = true
+                cell.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+            }  else {
             cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+                cell.isUserInteractionEnabled = false
+            }
             cell.layer.cornerRadius = 50
             cell.layer.borderWidth = 3
             

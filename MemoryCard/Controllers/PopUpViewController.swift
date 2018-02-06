@@ -80,7 +80,8 @@ class PopUpViewController: UIViewController {
     
     // Next level of the game
     @IBAction func nextLevelButton(_ sender: UIButton) {
-        
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "nextLevelButton"), object: self)
+        dismiss(animated: true, completion: nil)
         //TODO: nextLevelButton functionality
     }
     

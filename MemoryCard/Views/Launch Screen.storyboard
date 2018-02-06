@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_0" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -21,23 +21,23 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blurLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="Kr5-H1-eih">
-                                <rect key="frame" x="-2" y="-4" width="324" height="576"/>
+                                <rect key="frame" x="0.0" y="33" width="375" height="634"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Memory Card" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
-                                <rect key="frame" x="0.0" y="166" width="320" height="49"/>
+                                <rect key="frame" x="0.0" y="199" width="375" height="49"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="45"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cardsLauncn" translatesAutoresizingMaskIntoConstraints="NO" id="3Y1-Vv-vFl">
-                                <rect key="frame" x="42" y="230" width="236" height="266"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" image="cardsLauncn" translatesAutoresizingMaskIntoConstraints="NO" id="3Y1-Vv-vFl">
+                                <rect key="frame" x="42" y="263" width="291" height="332"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.29808099003641597" green="0.43525474325993119" blue="0.76565071646192895" alpha="0.75315710616438358" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="3Y1-Vv-vFl" secondAttribute="bottom" constant="72" id="6FU-u0-JRl"/>
                             <constraint firstItem="Bcu-3y-fUS" firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="Q3B-4B-g5h"/>
@@ -45,7 +45,10 @@
                             <constraint firstItem="3Y1-Vv-vFl" firstAttribute="centerX" secondItem="Kr5-H1-eih" secondAttribute="centerX" id="YKs-Ej-Ay3"/>
                             <constraint firstItem="3Y1-Vv-vFl" firstAttribute="centerX" secondItem="GJd-Yh-RWb" secondAttribute="centerX" id="YeY-mg-0uQ"/>
                             <constraint firstItem="3Y1-Vv-vFl" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="42" id="cyB-mD-U6r"/>
+                            <constraint firstItem="Kr5-H1-eih" firstAttribute="trailing" secondItem="Bcu-3y-fUS" secondAttribute="trailing" id="eTq-PK-0Bh"/>
+                            <constraint firstItem="Kr5-H1-eih" firstAttribute="bottom" secondItem="Bcu-3y-fUS" secondAttribute="bottom" id="ifu-oA-dTi"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="bottom" multiplier="1/3" constant="1" id="moa-c2-u7t"/>
+                            <constraint firstItem="Kr5-H1-eih" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="o2D-Ri-e1u"/>
                             <constraint firstItem="3Y1-Vv-vFl" firstAttribute="top" secondItem="GJd-Yh-RWb" secondAttribute="bottom" constant="15" id="ogw-mZ-aco"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" symbolic="YES" id="x7j-FC-K8j"/>
                         </constraints>
@@ -54,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50.625" y="373.94366197183098"/>
+            <point key="canvasLocation" x="49.275362318840585" y="373.36956521739131"/>
         </scene>
     </scenes>
     <resources>

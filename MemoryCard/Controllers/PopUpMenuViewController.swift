@@ -32,6 +32,7 @@ class PopUpMenuViewController: UIViewController {
     
     // Disables pause
     @IBAction func continueButton(_ sender: UIButton) {
+        
         dismiss(animated: true, completion: nil)
     }
 }

@@ -16,6 +16,11 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         { (notification) in
             self.newGame()
         }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "nextLevelButton"), object: nil, queue: OperationQueue.main)
+        { (notification) in
+            self.cardNumbersFromMenuController += 4
+            self.newGame()
+        }
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
     }
