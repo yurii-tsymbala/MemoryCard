@@ -12,10 +12,12 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     override func viewDidLoad() {
         newGame()
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
             self.newGame()
         }
+        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "nextLevelButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
             self.cardNumbersFromMenuController += 4
@@ -25,8 +27,10 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         cardCollectionView.dataSource = self
     }
     
+    let cellMagrings: CGFloat = 5
+    
     // Дефолтне значення кількості карток з MenuViewController
-    var cardNumbersFromMenuController = 8
+    var cardNumbersFromMenuController = 4
     // Дефолтне значення  назви стікерпаку з MenuViewController
     var imagePackLabelFromMenuController = "Pokemons"
     
@@ -90,39 +94,30 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     // MARK: - CollectionView Methods
     
+    func cellsRowAndColomn() -> (cellInRow: Int, cellInColomn: Int){
+        var cellInRow = Int(floor(sqrt(Double(cardNumbersFromMenuController))))
+        while (cardNumbersFromMenuController % cellInRow != 0) {
+            cellInRow -= 1
+            if (cellInRow == 1) {
+                break
+            }
+        }
+        let cellInColomn = cardNumbersFromMenuController / cellInRow
+        return (cellInRow, cellInColomn)
+    }
+    
     // Returns the size of the cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let screenWidth = Int(cardCollectionView.frame.width)
-        let screenHeight = Int(cardCollectionView.frame.height)
-        
-        var size = CGSize(width: screenWidth/3, height: screenHeight/6)
-        
-        switch cardNumbersFromMenuController {
-        case 10:
-            size = CGSize(width: screenWidth/2, height: screenHeight/5)
-        case 12:
-            size = CGSize(width: screenWidth/3, height: screenHeight/4)
-        case 16:
-            size = CGSize(width: screenWidth/4, height: screenHeight/4)
-        case 18:
-            size = CGSize(width: screenWidth/3, height: screenHeight/6)
-        case 24:
-            size = CGSize(width: screenWidth/4, height: screenHeight/6)
-        case 28:
-            size = CGSize(width: screenWidth/4, height: screenHeight/7)
-        case 30:
-            size = CGSize(width: screenWidth/5, height: screenHeight/6)
-        case 32:
-            size = CGSize(width: screenWidth/4, height: screenHeight/8)
-        case 36:
-            size = CGSize(width: screenWidth/6, height: screenHeight/6)
-        default:
-            //  Default value for 8 cards
-            size = CGSize(width: screenWidth/2, height: screenHeight/4)
+        let screenWidth = collectionView.frame.width
+        let screenHeight = collectionView.frame.height
+        let cell = cellsRowAndColomn()
+        if (screenWidth < screenHeight) {
+            return CGSize(width: screenWidth/CGFloat(cell.cellInRow) - cellMagrings, height: screenHeight/CGFloat(cell.cellInColomn) - cellMagrings)
+        } else {
+            return CGSize(width: screenWidth/CGFloat(cell.cellInColomn) - cellMagrings, height: screenHeight/CGFloat(cell.cellInRow) - cellMagrings)
         }
-        return size
     }
+
     
     // Returns number of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
