@@ -20,7 +20,9 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
-        
+        imageLabel.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        imageLabel.layer.borderWidth = 5
+        imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
