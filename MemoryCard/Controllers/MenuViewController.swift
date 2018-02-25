@@ -20,8 +20,10 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
+        imagePackCollectionView.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        imagePackCollectionView.layer.borderWidth = 5
         imageLabel.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        imageLabel.layer.borderWidth = 5
+        imageLabel.layer.borderWidth = 2
         imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -39,7 +41,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var imagePackCollectionView: UICollectionView!
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
-
+    
     @IBOutlet weak var coinLabel: UILabel!
     
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
@@ -75,7 +77,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
-           // cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
+            // cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
             //cell.layer.cornerRadius = 15
             //cell.layer.borderWidth = 2
             
@@ -96,7 +98,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     cell.timeOfLevel.text = "Best time: \(timeResult) sec"
                 }
             }
-    
+            
             cell.alpha = 0
             cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
             UIView.animate(withDuration: 0.8, animations: { () -> Void in
@@ -111,7 +113,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.isUserInteractionEnabled = true
                 cell.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
             }  else {
-            cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+                cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
                 cell.isUserInteractionEnabled = false
             }
             cell.layer.cornerRadius = 50
@@ -125,7 +127,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var imagePackName = "Pokemons"
     
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         if collectionView == self.imagePackCollectionView {
