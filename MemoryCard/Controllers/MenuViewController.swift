@@ -15,6 +15,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1)
         imagePackCollectionView.delegate = self
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
@@ -31,32 +32,26 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    // "Choose Image Pack" label
     @IBOutlet weak var imageLabel: UILabel!
     
     @IBOutlet weak var imagePackCollectionView: UICollectionView!
     
     @IBOutlet weak var levelPackCollectionView: UICollectionView!
-    
-    // "Earned coins" label
+
     @IBOutlet weak var coinLabel: UILabel!
     
-    // Array of imagePacks
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
-    // Images of imagePacks
     let imagesPack : [UIImage] = [
         UIImage (named : "pockemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
     ]
     
-    // Array of numberOfCards = "Levels"
     let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40"]
     
     // MARK: CollectionView Methods
     
-    // Returns amount of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.imagePackCollectionView {
             return imagesPackLabel.count
@@ -65,15 +60,10 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    // Returns created cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if collectionView == self.imagePackCollectionView {
-            // Creating imagePackCell
             let cell: ImagePackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePackCell", for: indexPath) as! ImagePackCollectionViewCell
-            // Adding image of imagePack in cell
             cell.imagePackView.image = imagesPack[indexPath.item]
-            // Adding name of imagePack in cell
             cell.nameOfImagePackView.text = imagesPackLabel[indexPath.item]
             
             // Design of imagePackCell
@@ -83,9 +73,9 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
-            cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
-            cell.layer.cornerRadius = 15
-            cell.layer.borderWidth = 2
+           // cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
+            //cell.layer.cornerRadius = 15
+            //cell.layer.borderWidth = 2
             
             return cell
         } else {
@@ -103,10 +93,8 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     cell.scoreOfLevel.text = "Best score: \(tryResult) tries"
                     cell.timeOfLevel.text = "Best time: \(timeResult) sec"
                 }
-                
             }
-            
-            // Design of levelPackCell
+    
             cell.alpha = 0
             cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
             UIView.animate(withDuration: 0.8, animations: { () -> Void in
@@ -130,10 +118,9 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             return cell
         }
     }
-    // Default value of cardNumber
+    // Default values
     var cardNumber = 8
     
-    // Default value of imagePackName
     var imagePackName = "Pokemons"
     
 
@@ -167,7 +154,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    // Sends data from cell to GameViewController by segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
         if segue.identifier == "NumberOfCard" {
             
