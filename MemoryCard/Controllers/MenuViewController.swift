@@ -82,32 +82,6 @@ class MenuViewController: UIViewController {
     }
 }
 
-extension MenuViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if collectionView == self.imagePackCollectionView {
-            // Changes color of imageCardCell
-            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-            // Saves name of imagePack from imagePackCell
-            imagePackName = String(imagesPackLabel[indexPath.item])
-            print("\(imagePackName) stickerPack Selected ")
-        } else {
-            if indexPath.row > (results.count) {
-                titles = "No access"
-                message = "Pass previous levels"
-                showAlert(titles, message)
-            }
-            // Saves numberOfCards from levelPackCell
-            cardNumber = Int(levelsPack[indexPath.item])!
-            print("NumberOfCards in Level = \(cardNumber)")
-            print("IndexOf LevelPackCell = \(indexPath.item)")
-            
-            performSegue(withIdentifier: "NumberOfCard", sender: self)
-        }
-    }
-}
-
 extension MenuViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -156,6 +130,32 @@ extension MenuViewController: UICollectionViewDataSource {
                 }
             }
             return cell
+        }
+    }
+}
+
+extension MenuViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == self.imagePackCollectionView {
+            // Changes color of imageCardCell
+            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+            // Saves name of imagePack from imagePackCell
+            imagePackName = String(imagesPackLabel[indexPath.item])
+            print("\(imagePackName) stickerPack Selected ")
+        } else {
+            if indexPath.row > (results.count) {
+                titles = "No access"
+                message = "Pass previous levels"
+                showAlert(titles, message)
+            }
+            // Saves numberOfCards from levelPackCell
+            cardNumber = Int(levelsPack[indexPath.item])!
+            print("NumberOfCards in Level = \(cardNumber)")
+            print("IndexOf LevelPackCell = \(indexPath.item)")
+            
+            performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
     }
 }

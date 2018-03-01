@@ -16,7 +16,11 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     
-    var seconds = 0
+    var seconds = 0 {
+        didSet {
+            timerLabel.text = "Time : \(seconds)"
+        }
+    }
     
     var flipCount = 0 {
         didSet {
@@ -68,7 +72,6 @@ class GameViewController: UIViewController {
     
     @objc func timerElapsed() {
         seconds += 1
-        timerLabel.text = "Time : \(seconds)"
     }
     
     // MARK: Game Logic Methods
@@ -76,49 +79,34 @@ class GameViewController: UIViewController {
     func newGame() {
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         seconds = 0
-        timerLabel.text = "Time : \(seconds)"
         flipCount = 0
-        flipCountLabel.text = "Tries : \(flipCount)"
         cardCollectionView.reloadData()
     }
     
     func checkForMatches(_ secondFlippedCardIndex:IndexPath) {
-        
-        // створюю клітинки для двох карток які відкрив
         let cardOneCell = cardCollectionView.cellForItem(at: firstFlippedCardIndex!) as? CardCollectionViewCell
         let cardTwoCell = cardCollectionView.cellForItem(at: secondFlippedCardIndex) as? CardCollectionViewCell
-        
-        // створюю картки для двох карток які відкрив
         let cardOne = cardArray[firstFlippedCardIndex!.row]
         let cardTwo = cardArray[secondFlippedCardIndex.row]
         
-        // Порівняння двох вибраних карт
-        //  якшо дві картки однакові
         if cardOne.cardPhotoName == cardTwo.cardPhotoName {
             cardOne.isMatched = true
             cardTwo.isMatched = true
-            // Deleting cards with animation
-            // delay for deleting animation
             cardCollectionView.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 self.cardCollectionView.isUserInteractionEnabled = true
                 cardOneCell?.remove()
                 cardTwoCell?.remove()
             }
-            // delay for deleting animation
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-                // Deleting cells
                 cardOneCell?.removeFromSuperview()
                 cardTwoCell?.removeFromSuperview()
-                // checking if any cards are left
                 self.checkGameEnded()
             }
         } else {
             flipCount += 1
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
-            
-            //повертаю картки в дефолтний стан
             cardCollectionView.isUserInteractionEnabled = false
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
                 self.cardCollectionView.isUserInteractionEnabled = true
@@ -126,11 +114,9 @@ class GameViewController: UIViewController {
                 cardTwoCell?.flipback()
             }
         }
-        // Reloading cell of first flipped card
         if cardOneCell == nil {
             cardCollectionView.reloadItems(at: [firstFlippedCardIndex!])
         }
-        //  deleting index of first flipped cell"card"
         firstFlippedCardIndex = nil
     }
     
