@@ -10,7 +10,7 @@ import Foundation
 
 class Card {
     
-    var cardPhotoName = "" // name of the image from assets that will be viewed on card
+    var cardPhotoName = ""
     var isFlipped = false
     var isMatched = false
 }

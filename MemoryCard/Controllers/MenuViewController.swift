@@ -9,40 +9,9 @@
 import UIKit
 import CoreData
 
-class MenuViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MenuViewController: UIViewController {
     
     var results: [NSManagedObject]!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1)
-        imagePackCollectionView.delegate = self
-        levelPackCollectionView.delegate = self
-        imagePackCollectionView.dataSource = self
-        imagePackCollectionView.dataSource = self
-        imagePackCollectionView.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        imagePackCollectionView.layer.borderWidth = 5
-        imageLabel.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        imageLabel.layer.borderWidth = 2
-        imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
-        
-        do {
-            results = try managedContext.fetch(fetchRequest)
-        } catch let err as NSError {
-            print("Failed to fetch items", err)
-        }
-    }
-    
-    @IBOutlet weak var imageLabel: UILabel!
-    
-    @IBOutlet weak var imagePackCollectionView: UICollectionView!
-    
-    @IBOutlet weak var levelPackCollectionView: UICollectionView!
-    
-    @IBOutlet weak var coinLabel: UILabel!
     
     let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
@@ -54,7 +23,82 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40"]
     
-    // MARK: CollectionView Methods
+    var cardNumber = 4
+    
+    var imagePackName = "Pokemons"
+    
+    @IBOutlet weak var imageLabel: UILabel!
+    
+    @IBOutlet weak var imagePackCollectionView: UICollectionView!
+    
+    @IBOutlet weak var levelPackCollectionView: UICollectionView!
+    
+    @IBOutlet weak var coinLabel: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imagePackCollectionView.delegate = self
+        levelPackCollectionView.delegate = self
+        imagePackCollectionView.dataSource = self
+        imagePackCollectionView.dataSource = self
+        imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1)
+        imagePackCollectionView.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
+        imagePackCollectionView.layer.borderWidth = 5
+        imageLabel.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
+        imageLabel.layer.borderWidth = 2
+        imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
+        fetchDataFromDB()
+    }
+    
+    func fetchDataFromDB() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
+        do {
+            results = try managedContext.fetch(fetchRequest)
+        } catch let err as NSError {
+            print("Failed to fetch items", err)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "NumberOfCard" {
+            let numberOfCardsFromCell = segue.destination as! GameViewController
+            numberOfCardsFromCell.cardNumbersFromMenuController = cardNumber
+            let imagePackNameFromCell = segue.destination as! GameViewController
+            imagePackNameFromCell.imagePackLabelFromMenuController = imagePackName
+        }
+    }
+}
+
+extension MenuViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if collectionView == self.imagePackCollectionView {
+            
+            // Changes color of imageCardCell
+            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            
+            // Saves name of imagePack from imagePackCell
+            imagePackName = String(imagesPackLabel[indexPath.item])
+            print("\(imagePackName) stickerPack Selected ")
+        } else {
+            
+            // Changes color of levelCardCell
+            levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
+            
+            // Saves numberOfCards from levelPackCell
+            cardNumber = Int(levelsPack[indexPath.item])!
+            print("NumberOfCards in Level = \(cardNumber)")
+            print("IndexOf LevelPackCell = \(indexPath.item)")
+            
+            performSegue(withIdentifier: "NumberOfCard", sender: self)
+        }
+    }
+}
+
+extension MenuViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.imagePackCollectionView {
@@ -65,6 +109,7 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         if collectionView == self.imagePackCollectionView {
             let cell: ImagePackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePackCell", for: indexPath) as! ImagePackCollectionViewCell
             cell.imagePackView.image = imagesPack[indexPath.item]
@@ -77,10 +122,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 cell.alpha = 1
                 cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
             })
-            // cell.backgroundColor = #colorLiteral(red: 1, green: 0.6748031922, blue: 0.3668660089, alpha: 1)
-            //cell.layer.cornerRadius = 15
-            //cell.layer.borderWidth = 2
-            
             return cell
         } else {
             
@@ -120,52 +161,6 @@ class MenuViewController: UIViewController, UICollectionViewDelegate, UICollecti
             cell.layer.borderWidth = 3
             
             return cell
-        }
-    }
-    // Default values
-    var cardNumber = 8
-    
-    var imagePackName = "Pokemons"
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        if collectionView == self.imagePackCollectionView {
-            
-            // Changes color of imageCardCell
-            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-            
-            // Changes background of views
-            levelPackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-            imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-            
-            // Saves name of imagePack from imagePackCell
-            imagePackName = String(imagesPackLabel[indexPath.item])
-            print("\(imagePackName) stickerPack Selected ")
-            print("IndexOf ImagePackCell = \(indexPath.item)")
-            
-        } else {
-            
-            // Changes color of levelCardCell
-            levelPackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.7450980544, green: 0.1568627506, blue: 0.07450980693, alpha: 1)
-            
-            // Saves numberOfCards from levelPackCell
-            cardNumber = Int(levelsPack[indexPath.item])!
-            print("NumberOfCards in Level = \(cardNumber)")
-            print("IndexOf LevelPackCell = \(indexPath.item)")
-            
-            performSegue(withIdentifier: "NumberOfCard", sender: self)
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
-        if segue.identifier == "NumberOfCard" {
-            
-            let numberOfCardsFromCell = segue.destination as! GameViewController
-            numberOfCardsFromCell.cardNumbersFromMenuController = cardNumber
-            
-            let imagePackNameFromCell = segue.destination as! GameViewController
-            imagePackNameFromCell.imagePackLabelFromMenuController = imagePackName
         }
     }
 }

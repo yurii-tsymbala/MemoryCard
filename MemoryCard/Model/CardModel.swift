@@ -26,52 +26,36 @@ class CardModel {
      7) додаю другу карточку в масив
      8) повторюємо виконання циклу з наступними парами карток
      */
+    
     func getCards(cardNumberInModel: Int,imagePackInModel: String) -> [Card] {
         
         var cardArray = [Card]()
         
-        // cardNumberInModel - amount of cards in level
-        // (cardNumberInModel!/2) - amount of pairs of cards
-        
         for _ in 1...(cardNumberInModel/2) {
             
-            // Створюю рандомне число (в межаж від 1 до 30) - це межі картинок з дефолтним стікерпаком "pockemons"
             let randomNumber = arc4random_uniform(30)+1
-            
-            // Виводжу в консоль рандомну назву фото картки
-            print("RandomNumberOfCardImage = \(randomNumber)")
             
             switch imagePackInModel {
             case "Food":
-                // Cтворюю 1 картку з пари
                 let cardOne = Card()
-                
-                // Присвоюю картці назву фото(в межаж від 31 до 61),яка знаходиться в assets.
                 cardOne.cardPhotoName = "\(randomNumber+30)"
-                
-                // Додаю картку в масив
                 cardArray.append(cardOne)
-                
                 let cardTwo = Card()
                 cardTwo.cardPhotoName = "\(randomNumber+30)"
                 cardArray.append(cardTwo)
                 
             case "Cars":
                 let cardOne = Card()
-                // Присвоюю картці назву фото(в межаж від 62 до 92),яка знаходиться в assets
                 cardOne.cardPhotoName = "\(randomNumber+61)"
                 cardArray.append(cardOne)
-                
                 let cardTwo = Card()
                 cardTwo.cardPhotoName = "\(randomNumber+61)"
                 cardArray.append(cardTwo)
                 
             default:
                 let cardOne = Card()
-                // Присвоюю картці назву фото(в межаж від 1 до 30),яка знаходиться в assets.
                 cardOne.cardPhotoName = "\(randomNumber)"
                 cardArray.append(cardOne)
-        
                 let cardTwo = Card()
                 cardTwo.cardPhotoName = "\(randomNumber)"
                 cardArray.append(cardTwo)
@@ -81,12 +65,10 @@ class CardModel {
         //MARK: Randoming cards in Array
         
         var randomArray = [Card]()
-        // Limit of random = cards in game
         var upperLimit:UInt = UInt(cardNumberInModel)
         var randomlyGeneratedNumber: Int
         
         for _ in 1...(cardNumberInModel) {
-            
             randomlyGeneratedNumber = Int(arc4random_uniform(UInt32(upperLimit)))
             randomArray.append(cardArray[randomlyGeneratedNumber])
             cardArray.remove(at: randomlyGeneratedNumber)

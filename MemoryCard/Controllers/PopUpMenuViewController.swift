@@ -10,7 +10,6 @@ import UIKit
 
 class PopUpMenuViewController: UIViewController {
     
-    // "Game is paused" label
     @IBOutlet weak var pauseLabel: UILabel!
     
     // Returns to main menu
@@ -29,10 +28,8 @@ class PopUpMenuViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         dismiss(animated: true, completion: nil)
     }
-    
-    // Disables pause
+
     @IBAction func continueButton(_ sender: UIButton) {
-        
         dismiss(animated: true, completion: nil)
     }
 }

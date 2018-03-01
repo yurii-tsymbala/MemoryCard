@@ -8,62 +8,59 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class GameViewController: UIViewController {
+    
+    var model = CardModel()
+    
+    var cardArray = [Card]()
+    
+    var timer: Timer?
+    
+    var seconds = 0
+    
+    var flipCount = 0 {
+        didSet {
+            flipCountLabel.text = "Tries : \(flipCount)"
+        }
+    }
+    
+    var firstFlippedCardIndex:IndexPath?
+    
+    var cardNumbersFromMenuController = 4
+    
+    var imagePackLabelFromMenuController = "Pokemons"
+    
+    let cellMagrings: CGFloat = 5
+    
+    @IBOutlet weak var cardCollectionView: UICollectionView!
+    
+    @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet weak var flipCountLabel: UILabel!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        cardCollectionView.delegate = self
+        cardCollectionView.dataSource = self
         newGame()
-        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
             self.newGame()
         }
-        
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "nextLevelButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
             self.cardNumbersFromMenuController += 4
             self.newGame()
         }
-        cardCollectionView.delegate = self
-        cardCollectionView.dataSource = self
     }
     
-    let cellMagrings: CGFloat = 5
-    
-    // Дефолтне значення кількості карток з MenuViewController
-    var cardNumbersFromMenuController = 4
-    // Дефолтне значення  назви стікерпаку з MenuViewController
-    var imagePackLabelFromMenuController = "Pokemons"
-    
-    // Creats new game
-    func newGame(){
-        
-        // Entering in cardArray cards from CardModel
-        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
-        
-        seconds = 0
-        timerLabel.text = "Time : \(seconds)"
-        flipCount = 0
-        flipCountLabel.text = "Tries : \(flipCount)"
-        // Updating view
-        cardCollectionView.reloadData()
-    }
+    // MARK: Timer Methods
     
     @IBAction func menuButton(_ sender: UIButton) {
-        // stops timer
         timer?.invalidate()
     }
     
-    @IBOutlet weak var timerLabel: UILabel!
-    
-    var seconds = 0
-    
-    var timer: Timer?
-    
-    // MARK: - Timer Methods
-    
-    func timerStart(){
-        
-        //Create timer
+    func timerStart() {
         if !(timer?.isValid ?? false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
         }
@@ -74,111 +71,17 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         timerLabel.text = "Time : \(seconds)"
     }
     
-    @IBOutlet weak var flipCountLabel: UILabel!
+    // MARK: Game Logic Methods
     
-    // When flipCount changes -> didset works
-    var flipCount = 0 {
-        didSet {
-            flipCountLabel.text = "Tries : \(flipCount)"
-        }
+    func newGame() {
+        cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
+        seconds = 0
+        timerLabel.text = "Time : \(seconds)"
+        flipCount = 0
+        flipCountLabel.text = "Tries : \(flipCount)"
+        cardCollectionView.reloadData()
     }
     
-    @IBOutlet weak var cardCollectionView: UICollectionView!
-    
-    var model = CardModel()
-    
-    var cardArray = [Card]()
-    
-    // Index of the card that was flipped first
-    var firstFlippedCardIndex:IndexPath?
-    
-    // MARK: - CollectionView Methods
-    
-    func cellsRowAndColomn() -> (cellInRow: Int, cellInColomn: Int){
-        var cellInRow = Int(floor(sqrt(Double(cardNumbersFromMenuController))))
-        while (cardNumbersFromMenuController % cellInRow != 0) {
-            cellInRow -= 1
-            if (cellInRow == 1) {
-                break
-            }
-        }
-        let cellInColomn = cardNumbersFromMenuController / cellInRow
-        return (cellInRow, cellInColomn)
-    }
-    
-    // Returns the size of the cell
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let screenWidth = collectionView.frame.width
-        let screenHeight = collectionView.frame.height
-        let cell = cellsRowAndColomn()
-        if (screenWidth < screenHeight) {
-            return CGSize(width: screenWidth/CGFloat(cell.cellInRow) - cellMagrings, height: screenHeight/CGFloat(cell.cellInColomn) - cellMagrings)
-        } else {
-            return CGSize(width: screenWidth/CGFloat(cell.cellInColomn) - cellMagrings, height: screenHeight/CGFloat(cell.cellInRow) - cellMagrings)
-        }
-    }
-
-    
-    // Returns number of cells
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return cardArray.count
-    }
-    
-    // Returns created cell
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
-        
-        // Creating the card
-        let card = cardArray[indexPath.row]
-        
-        // Entering card to the cell
-        cell.setCard(card)
-        
-        // Design of CardCell
-        cell.alpha = 0
-        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
-        UIView.animate(withDuration: 0.6, animations: { () -> Void in
-            cell.alpha = 1
-            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
-        })
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        // Starting the timer when cell selected
-        timerStart()
-        
-        // Cell that user selected
-        let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
-        
-        // Card that user selected
-        let card = cardArray[indexPath.row]
-        
-        print("IndexOf CardCell = \(indexPath.item)")
-        
-        // Logic of Cards checking
-        if card.isFlipped == false && card.isMatched == false {
-            
-            // Flipping selected card
-            cell.flip()
-            card.isFlipped = true
-            
-            // Checking wich card turns first
-            if firstFlippedCardIndex == nil {
-                
-                // setting index to firstFlippedCard
-                firstFlippedCardIndex = indexPath
-            } else {
-                checkForMatches(indexPath)
-            }
-        }
-    }
-    
-    //MARK: Game Logic Methods
-    
-    // Checking the cards for matching
     func checkForMatches(_ secondFlippedCardIndex:IndexPath) {
         
         // створюю клітинки для двох карток які відкрив
@@ -192,10 +95,8 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         // Порівняння двох вибраних карт
         //  якшо дві картки однакові
         if cardOne.cardPhotoName == cardTwo.cardPhotoName {
-            
             cardOne.isMatched = true
             cardTwo.isMatched = true
-            
             // Deleting cards with animation
             // delay for deleting animation
             cardCollectionView.isUserInteractionEnabled = false
@@ -204,21 +105,16 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 cardOneCell?.remove()
                 cardTwoCell?.remove()
             }
-            
             // delay for deleting animation
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
                 // Deleting cells
                 cardOneCell?.removeFromSuperview()
                 cardTwoCell?.removeFromSuperview()
-                
                 // checking if any cards are left
                 self.checkGameEnded()
             }
         } else {
-            
-            flipCount += 1 // додаю невдалу спробу
-            
-            //статус двох карт
+            flipCount += 1
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
             
@@ -238,7 +134,6 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
         firstFlippedCardIndex = nil
     }
     
-    // Checking if there are no cards left in game
     func checkGameEnded(){
         var isWon = true
         for card in cardArray {
@@ -247,25 +142,87 @@ class GameViewController: UIViewController, UICollectionViewDataSource, UICollec
                 break
             }
         }
-        // If there are no cards left : stopping timer+moving to recordview
         if isWon == true {
             timer?.invalidate()
             performSegue(withIdentifier: "RecordSegue", sender: self)
         }
     }
     
-    // Sends data (time and tries) to PopUpViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)  {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "RecordSegue" {
-            
             let cardsNumberFromLevel = segue.destination as! PopUpViewController
             cardsNumberFromLevel.cardsNumberFromGameController = cardNumbersFromMenuController
-            
             let timeFromLevel = segue.destination as! PopUpViewController
             timeFromLevel.timeFromGameController = seconds
-            
             let triesFromLevel = segue.destination as! PopUpViewController
             triesFromLevel.triesFromGameController = flipCount
+        }
+    }
+}
+
+extension GameViewController:  UICollectionViewDataSource {
+    
+    func cellsRowAndColomn() -> (cellInRow: Int, cellInColomn: Int) {
+        var cellInRow = Int(floor(sqrt(Double(cardNumbersFromMenuController))))
+        while (cardNumbersFromMenuController % cellInRow != 0) {
+            cellInRow -= 1
+            if (cellInRow == 1) {
+                break
+            }
+        }
+        let cellInColomn = cardNumbersFromMenuController / cellInRow
+        return (cellInRow, cellInColomn)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cardArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
+        let card = cardArray[indexPath.row]
+        cell.setCard(card)
+        
+        // Design of CardCell
+        cell.alpha = 0
+        cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
+        UIView.animate(withDuration: 0.6, animations: { () -> Void in
+            cell.alpha = 1
+            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+        })
+        return cell
+    }
+}
+
+extension GameViewController: UICollectionViewDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        timerStart()
+        let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
+        let card = cardArray[indexPath.row]
+        // Logic of Cards checking
+        if card.isFlipped == false && card.isMatched == false {
+            cell.flip()
+            card.isFlipped = true
+            if firstFlippedCardIndex == nil {
+                firstFlippedCardIndex = indexPath
+            } else {
+                checkForMatches(indexPath)
+            }
+        }
+    }
+}
+
+extension GameViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let screenWidth = collectionView.frame.width
+        let screenHeight = collectionView.frame.height
+        let cell = cellsRowAndColomn()
+        if (screenWidth < screenHeight) {
+            return CGSize(width: screenWidth/CGFloat(cell.cellInRow) - cellMagrings, height: screenHeight/CGFloat(cell.cellInColomn) - cellMagrings)
+        } else {
+            return CGSize(width: screenWidth/CGFloat(cell.cellInColomn) - cellMagrings, height: screenHeight/CGFloat(cell.cellInRow) - cellMagrings)
         }
     }
 }
