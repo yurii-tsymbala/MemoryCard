@@ -89,6 +89,26 @@ class PopUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        fetchDataFromDB()
+        checkForFirstTry()
+    }
+    
+    func checkForFirstTry() {
+        for result in results {
+            // Checking result by cardsNumber Key
+            let cardsResult = result.value(forKey: "cardsNumber") as! Int
+            if (cardsResult == cardsNumberFromGameController) {
+                firstTryOfLevel = true
+            }
+        }
+        if (!firstTryOfLevel) {
+            saveNewResult()
+        } else {
+            saveBestRecordForLevel()
+        }
+    }
+    
+    func fetchDataFromDB() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
@@ -97,32 +117,15 @@ class PopUpViewController: UIViewController {
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
-        // Checking result by cardsNumber Key
-        for result in results {
-            let cardsResult = result.value(forKey: "cardsNumber") as! Int
-            if (cardsResult == cardsNumberFromGameController) {
-                firstTryOfLevel = true
-            } }
-        // If level was not completed = save first result to database
-        if (!firstTryOfLevel) {
-            saveNewResult()
-        } else {
-            // Level already completed -> save new best record
-            saveBestRecordForLevel()
-        }
-        // Fetching data and printing to console
-        print("=== Best Records in DB ===")
+        print("================= BEST RECORDS IN DATABASE =================")
         // Views all info from database
         for result in results {
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let tryResult = result.value(forKey: "tries") ?? 0
             let timeResult = result.value(forKey: "time") ?? 0
-            print("LEVEL : [\(cardsResult)] cards || Tries : [\(tryResult)] fails || Time : [\(timeResult)] seconds")
+            print("LEVEL : [\(cardsResult)] cards || TRIES : [\(tryResult)] fails || TIME : [\(timeResult)] seconds")
         }
     }
-    
-    
-    // MARK:  Core Data methods
     
     func saveNewResult() {
         shareButton.isHidden = false
