@@ -24,7 +24,7 @@ class CardCollectionViewCell: UICollectionViewCell {
             do {
                 let image = try JSONDecoder().decode([Image].self, from: data)
                 for img in image {
-                    /////
+                    ///////
                 }
             } catch let jsonErr {
                 print("Error serializing json:", jsonErr)
@@ -32,7 +32,7 @@ class CardCollectionViewCell: UICollectionViewCell {
             }.resume()
     }
     
-    func setCard(_ card:Card){
+    func setCard(_ card:Card) {
         parseJson()
         self.card = card
         let imageUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/2.png"
