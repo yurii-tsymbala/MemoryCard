@@ -16,9 +16,33 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     var card:Card?
     
+    var images = [String: String]()
+    
+    func parseJson() {
+        let jsonUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/images.json"
+        guard let url = URL(string: jsonUrlString) else { return }
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            guard let data = data else { return }
+            do {
+                let image = try JSONDecoder().decode([Image].self, from: data)
+                for img in image {
+                    guard let name = img.name, let link = img.link else{return}
+                    self.images[name] = link
+                    print(self.images)
+                }
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+            }
+            }.resume()
+    }
+    
     func setCard(_ card:Card){
+        parseJson()
         self.card = card
-        photoCard.image = UIImage(named: card.cardPhotoName)
+        let imageUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/2.png"
+        let imageUrl = URL(string: imageUrlString)!
+        photoCard.image = try! UIImage(withContentsOfUrl: imageUrl)
+      // photoCard.image = UIImage(named: card.cardPhotoName)
         //Fixed bugs with viewing cards after restart of the level
         if card.isMatched == true {
             backgroundCard.alpha = 0
@@ -52,5 +76,12 @@ class CardCollectionViewCell: UICollectionViewCell {
             self.photoCard.alpha = 0
             self.backgroundCard.alpha = 0
         }, completion: nil)
+    }
+}
+extension UIImage {
+    
+    convenience init?(withContentsOfUrl url: URL) throws {
+        let imageData = try Data(contentsOf: url)
+        self.init(data: imageData)
     }
 }
