@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 
+var imagesPic = [Image]()
+
 class MenuViewController: UIViewController {
     
     var results: [NSManagedObject]!
@@ -20,6 +22,8 @@ class MenuViewController: UIViewController {
         UIImage (named : "food")!,
         UIImage (named : "car")!
     ]
+    
+//     var images = [Image]()
     
     let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40"]
     
@@ -52,6 +56,7 @@ class MenuViewController: UIViewController {
         imageLabel.layer.borderWidth = 2
         imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         fetchDataFromDB()
+        parseJson()
     }
     
     func fetchDataFromDB() {
@@ -63,6 +68,21 @@ class MenuViewController: UIViewController {
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
+    }
+    
+    func parseJson(){
+        let jsonUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/images.json"
+        guard let url = URL(string: jsonUrlString) else { return}
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            guard let data = data else { return }
+            do {
+                imagesPic = try JSONDecoder().decode([Image].self, from: data)
+//                imagesPic = self.images
+            } catch let jsonErr {
+                print("Error serializing json:", jsonErr)
+            }
+            }.resume()
+        
     }
     
     func showAlert(_ title: String, _ message: String) {
