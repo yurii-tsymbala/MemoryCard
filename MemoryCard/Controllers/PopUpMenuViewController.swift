@@ -28,7 +28,7 @@ class PopUpMenuViewController: UIViewController {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         dismiss(animated: true, completion: nil)
     }
-
+    
     @IBAction func continueButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }

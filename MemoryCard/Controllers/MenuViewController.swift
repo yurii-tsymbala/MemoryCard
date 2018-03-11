@@ -23,9 +23,7 @@ class MenuViewController: UIViewController {
         UIImage (named : "car")!
     ]
     
-//     var images = [Image]()
-    
-    let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40"]
+    let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40","44","48","52","56"]
     
     var cardNumber = 4
     
@@ -77,12 +75,10 @@ class MenuViewController: UIViewController {
             guard let data = data else { return }
             do {
                 imagesPic = try JSONDecoder().decode([Image].self, from: data)
-//                imagesPic = self.images
             } catch let jsonErr {
                 print("Error serializing json:", jsonErr)
             }
             }.resume()
-        
     }
     
     func showAlert(_ title: String, _ message: String) {

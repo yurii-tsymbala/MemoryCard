@@ -18,7 +18,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     
     func setCard(_ card:Card) {
         self.card = card
-        var imageUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/2.png"
+        var imageUrlString = ""
         for image in imagesPic {
             if let name = image.name {
                 if card.cardPhotoName == name {
