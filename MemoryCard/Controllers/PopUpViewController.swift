@@ -117,6 +117,9 @@ class PopUpViewController: UIViewController {
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
+    }
+    
+    func printDataFromDB() {
         print("================= BEST RECORDS IN DATABASE =================")
         // Views all info from database
         for result in results {
@@ -144,6 +147,7 @@ class PopUpViewController: UIViewController {
         } catch {
             print("error")
         }
+        printDataFromDB()
     }
     
     func saveBestRecordForLevel(){
@@ -176,5 +180,6 @@ class PopUpViewController: UIViewController {
         } catch {
             print("error")
         }
+        printDataFromDB()
     }
 }
