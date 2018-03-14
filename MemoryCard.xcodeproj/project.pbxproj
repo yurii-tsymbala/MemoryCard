@@ -18,6 +18,7 @@
 		4B06D6BF201A56C400F60047 /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6BE201A56C400F60047 /* CardModel.swift */; };
 		4B06D6C1201A578200F60047 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6C0201A578200F60047 /* CardCollectionViewCell.swift */; };
 		4B06D6C4201A57D400F60047 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B06D6C3201A57D400F60047 /* GameViewController.swift */; };
+		4B1A90C82059C09B0036468F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B1A90C72059C09B0036468F /* Colors.swift */; };
 		4B1E36E220244743009ADFB1 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B1E36E120244743009ADFB1 /* Launch Screen.storyboard */; };
 		4B43EBE7205000E50038BA29 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B43EBE6205000E50038BA29 /* Image.swift */; };
 		4B5DE7E2201E3C8800D25CFC /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B5DE7E1201E3C8800D25CFC /* PopUpViewController.swift */; };
@@ -38,6 +39,7 @@
 		4B06D6BE201A56C400F60047 /* CardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
 		4B06D6C0201A578200F60047 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B06D6C3201A57D400F60047 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		4B1A90C72059C09B0036468F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		4B1E36E120244743009ADFB1 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		4B43EBE6205000E50038BA29 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		4B5DE7E1201E3C8800D25CFC /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 				4B06D6952019EAA100F60047 /* AppDelegate.swift */,
 				4B06D69F2019EAA100F60047 /* Assets.xcassets */,
 				4B06D69C2019EAA100F60047 /* MemoryCard.xcdatamodeld */,
+				4B1A90C72059C09B0036468F /* Colors.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 				4B06D6C4201A57D400F60047 /* GameViewController.swift in Sources */,
 				4B5DE7E4201E479200D25CFC /* PopUpMenuViewController.swift in Sources */,
 				4B5DE7E2201E3C8800D25CFC /* PopUpViewController.swift in Sources */,
+				4B1A90C82059C09B0036468F /* Colors.swift in Sources */,
 				4B06D6BF201A56C400F60047 /* CardModel.swift in Sources */,
 				4B06D6AC201A140800F60047 /* MenuViewController.swift in Sources */,
 				4B06D6962019EAA100F60047 /* AppDelegate.swift in Sources */,

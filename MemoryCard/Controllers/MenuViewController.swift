@@ -50,9 +50,6 @@ class MenuViewController: UIViewController {
         imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1)
         imagePackCollectionView.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         imagePackCollectionView.layer.borderWidth = 5
-        imageLabel.backgroundColor = #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1)
-        imageLabel.layer.borderWidth = 2
-        imageLabel.layer.borderColor = #colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)
         fetchDataFromDB()
         parseJson()
     }
@@ -117,6 +114,7 @@ extension MenuViewController: UICollectionViewDataSource {
             return cell
         } else {
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
+            designOfCell(cell: cell)
             cell.numberOfLevel.text = levelsPack[indexPath.item]
             cell.scoreOfLevel.text = "Best score: -- tries"
             cell.timeOfLevel.text = "Best time: -- sec"
@@ -128,14 +126,6 @@ extension MenuViewController: UICollectionViewDataSource {
             } else {
                 cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
             }
-            cell.layer.cornerRadius = 50
-            cell.layer.borderWidth = 3
-            cell.alpha = 0
-            cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
-            UIView.animate(withDuration: 0.8, animations: { () -> Void in
-                cell.alpha = 1
-                cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
-            })
             for result in results {
                 let tryResult = result.value(forKey: "tries") ?? 0
                 let cardsResult = "\(result.value(forKey: "cardsNumber") ?? "0")"
@@ -147,6 +137,17 @@ extension MenuViewController: UICollectionViewDataSource {
             }
             return cell
         }
+    }
+    
+    func designOfCell(cell: LevelPackCollectionViewCell ) {
+        cell.layer.cornerRadius = 50
+        cell.layer.borderWidth = 3
+        cell.alpha = 0
+        cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
+        UIView.animate(withDuration: 0.8, animations: { () -> Void in
+            cell.alpha = 1
+            cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
+        })
     }
 }
 

@@ -167,17 +167,19 @@ extension GameViewController:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
+        designOfCell(cell: cell)
         let card = cardArray[indexPath.row]
         cell.setCard(card)
-        
-        // Design of CardCell
+        return cell
+    }
+    
+    func designOfCell(cell: CardCollectionViewCell) {
         cell.alpha = 0
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
         UIView.animate(withDuration: 0.6, animations: { () -> Void in
             cell.alpha = 1
             cell.layer.transform = CATransform3DScale(CATransform3DIdentity, 1, 1, 1)
         })
-        return cell
     }
 }
 

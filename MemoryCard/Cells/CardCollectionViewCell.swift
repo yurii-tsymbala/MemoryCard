@@ -63,6 +63,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         }, completion: nil)
     }
 }
+
 extension UIImage {
     
     convenience init?(withContentsOfUrl url: URL) throws {
