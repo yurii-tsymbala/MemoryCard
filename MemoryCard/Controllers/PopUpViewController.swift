@@ -11,19 +11,19 @@ import CoreData
 
 class PopUpViewController: UIViewController {
     
-    var resultsFromRecord: [NSManagedObject]!
+    private var resultsFromRecord: [NSManagedObject]!
     
-    var resultsFromCoins: [NSManagedObject]!
+    private var resultsFromCoins: [NSManagedObject]!
     
-    var firstTryOfLevel = false
+    private var firstTryOfLevel = false
     
-    var cardsNumberFromGameController = 0
+    private var cardsNumberFromGameController = 0
     
-    var timeFromGameController = 0
+    private var timeFromGameController = 0
     
-    var triesFromGameController = 0
+    private var triesFromGameController = 0
     
-    var coinsFromLevel = 10
+    private var coinsFromLevel = 10
     
     @IBOutlet weak var levelNumberLabel: UILabel!
     
@@ -51,7 +51,7 @@ class PopUpViewController: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
-    func captureScreen() -> UIImage? {
+    private func captureScreen() -> UIImage? {
         let screen = recordView.window?.layer
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions((screen?.frame.size)!, false, scale);
@@ -60,7 +60,6 @@ class PopUpViewController: UIViewController {
         return screenshot
     }
     
-    // Returns to Main Menu
     @IBAction func menuButton(_ sender: UIButton) {
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         let startMenuNav = UINavigationController(rootViewController: startMenu)
@@ -80,7 +79,7 @@ class PopUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func viewDesign() {
+    private func viewDesign() {
         shareButton.isHidden = true
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
@@ -111,8 +110,8 @@ class PopUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchDataFromDB()
         checkForFirstTry()
+        fetchDataFromDB()
     }
     
     func checkForFirstTry() {
@@ -163,7 +162,6 @@ class PopUpViewController: UIViewController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let context = appDelegate.persistentContainer.viewContext
         
-        // Sending data to DataBase attributes
         let newResultOfRecord = NSEntityDescription.insertNewObject(forEntityName: "Record", into: context)
         newResultOfRecord.setValue(cardsNumberFromGameController, forKey: "cardsNumber")
         newResultOfRecord.setValue(triesFromGameController, forKey: "tries")

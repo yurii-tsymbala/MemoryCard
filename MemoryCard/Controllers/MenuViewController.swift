@@ -13,25 +13,25 @@ var imagesPic = [Image]()
 
 class MenuViewController: UIViewController {
     
-    var results: [NSManagedObject]!
+    private var results: [NSManagedObject]!
     
-    let imagesPackLabel = ["Pokemons", "Food", "Cars"]
+    private let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
-    let imagesPack : [UIImage] = [
+    private let imagesPack : [UIImage] = [
         UIImage (named : "pockemon")!,
         UIImage (named : "food")!,
         UIImage (named : "car")!
     ]
     
-    let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40","44","48","52","56"]
+    private let levelsPack = ["4","8", "12", "16", "20", "24", "28", "32", "36", "40","44","48","52","56"]
     
-    var cardNumber = 4
+    private var cardNumber = 4
     
-    var imagePackName = "Pokemons"
+    private var imagePackName = "Pokemons"
     
-    var titles = ""
+    private var titles = ""
     
-    var message = ""
+    private var message = ""
     
     @IBOutlet weak var imageLabel: UILabel!
     
@@ -41,7 +41,7 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var coinLabel: UILabel!
     
-    func viewDesign() {
+   private func viewDesign() {
         view.backgroundColor = UIColor.Backgrounds.mainYellow
         levelPackCollectionView.backgroundColor = UIColor.Backgrounds.mainYellow
         imagePackCollectionView.backgroundColor = UIColor.Backgrounds.mediumGray
@@ -49,7 +49,7 @@ class MenuViewController: UIViewController {
         imagePackCollectionView.layer.borderWidth = CGFloat.Design.BorderWidth * 2
     }
     
-    override func viewDidLoad() {
+ override func viewDidLoad() {
         super.viewDidLoad()
         imagePackCollectionView.delegate = self
         levelPackCollectionView.delegate = self
@@ -60,7 +60,7 @@ class MenuViewController: UIViewController {
         parseJson()
     }
     
-    func fetchDataFromDB() {
+   private func fetchDataFromDB() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
@@ -71,7 +71,7 @@ class MenuViewController: UIViewController {
         }
     }
     
-    func parseJson() {
+  private func parseJson() {
         let jsonUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/images.json"
         guard let url = URL(string: jsonUrlString) else { return}
         URLSession.shared.dataTask(with: url) { (data, response, err) in
@@ -84,7 +84,7 @@ class MenuViewController: UIViewController {
             }.resume()
     }
     
-    func showAlert(_ title: String, _ message: String) {
+  private func showAlert(_ title: String, _ message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alert.addAction(alertAction)
@@ -145,7 +145,7 @@ extension MenuViewController: UICollectionViewDataSource {
         }
     }
     
-    func cellDesign(cell: LevelPackCollectionViewCell ) {
+ private func cellDesign(cell: LevelPackCollectionViewCell ) {
         cell.layer.cornerRadius = CGFloat.Design.CornerRadius
         cell.layer.borderWidth = CGFloat.Design.BorderWidth
         cell.alpha = 0

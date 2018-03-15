@@ -20,9 +20,7 @@ class PopUpMenuViewController: UIViewController {
     
     @IBOutlet weak var continueButton: UIButton!
     
-    // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
-        //TODO: розібратись як працєю
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         let startMenuNav = UINavigationController(rootViewController: startMenu)
         startMenuNav.isNavigationBarHidden = true
@@ -31,7 +29,6 @@ class PopUpMenuViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // Restarts the level
     @IBAction func resetButton(_ sender: UIButton) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: "retryButton"), object: self)
         dismiss(animated: true, completion: nil)
@@ -46,7 +43,7 @@ class PopUpMenuViewController: UIViewController {
         viewDesign()
     }
     
-    func viewDesign() {
+  private func viewDesign() {
         view.backgroundColor = UIColor.Backgrounds.darkYellow
         quitButton.backgroundColor = UIColor.Backgrounds.darkOrange
         quitButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis

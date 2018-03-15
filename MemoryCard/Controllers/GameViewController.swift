@@ -10,31 +10,31 @@ import UIKit
 
 class GameViewController: UIViewController {
     
-    var model = CardModel()
+    private var model = CardModel()
     
-    var cardArray = [Card]()
+    private var cardArray = [Card]()
     
-    var timer: Timer?
+    private var timer: Timer?
     
-    var seconds = 0 {
+    private var seconds = 0 {
         didSet {
             timerLabel.text = "Time : \(seconds)"
         }
     }
     
-    var flipCount = 0 {
+    private var flipCount = 0 {
         didSet {
             flipCountLabel.text = "Tries : \(flipCount)"
         }
     }
     
-    var firstFlippedCardIndex:IndexPath?
+    private var firstFlippedCardIndex:IndexPath?
     
-    var cardNumbersFromMenuController = 4
+    private var cardNumbersFromMenuController = 4
     
-    var imagePackLabelFromMenuController = "Pokemons"
+    private var imagePackLabelFromMenuController = "Pokemons"
     
-    let cellMagrings: CGFloat = 5
+    private let cellMagrings: CGFloat = 5
     
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
@@ -44,7 +44,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var menuButton: UIButton!
     
-    func viewDesign() {
+    private func viewDesign() {
         view.backgroundColor = UIColor.Backgrounds.mainYellow
         cardCollectionView.backgroundColor = UIColor.Backgrounds.mainYellow
         menuButton.backgroundColor = UIColor.Backgrounds.darkOrange
@@ -78,19 +78,19 @@ class GameViewController: UIViewController {
         timer?.invalidate()
     }
     
-    func timerStart() {
+    private func timerStart() {
         if !(timer?.isValid ?? false) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerElapsed), userInfo: nil, repeats: true)
         }
     }
     
-    @objc func timerElapsed() {
+    @objc private func timerElapsed() {
         seconds += 1
     }
     
     // MARK: Game Logic Methods
     
-    func newGame() {
+    private func newGame() {
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
         
         seconds = 0
@@ -98,7 +98,7 @@ class GameViewController: UIViewController {
         cardCollectionView.reloadData()
     }
     
-    func checkForMatches(_ secondFlippedCardIndex:IndexPath) {
+    private func checkForMatches(_ secondFlippedCardIndex:IndexPath) {
         let cardOneCell = cardCollectionView.cellForItem(at: firstFlippedCardIndex!) as? CardCollectionViewCell
         let cardTwoCell = cardCollectionView.cellForItem(at: secondFlippedCardIndex) as? CardCollectionViewCell
         let cardOne = cardArray[firstFlippedCardIndex!.row]
@@ -135,7 +135,7 @@ class GameViewController: UIViewController {
         firstFlippedCardIndex = nil
     }
     
-    func checkGameEnded(){
+    private func checkGameEnded(){
         var isWon = true
         for card in cardArray {
             if card.isMatched == false{
@@ -187,7 +187,7 @@ extension GameViewController:  UICollectionViewDataSource {
         return cell
     }
     
-    func cellDesign(cell: CardCollectionViewCell) {
+    private func cellDesign(cell: CardCollectionViewCell) {
         cell.alpha = 0
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
         UIView.animate(withDuration: 0.6, animations: { () -> Void in
