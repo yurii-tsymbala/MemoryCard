@@ -100,7 +100,6 @@ class PopUpViewController: UIViewController {
         shareButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
         shareButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
         shareButton.backgroundColor = UIColor.Backgrounds.darkBlue
-        
     }
     
     override func viewDidLoad() {
@@ -144,7 +143,6 @@ class PopUpViewController: UIViewController {
     
     func printDataFromDB() {
         print("================= BEST RECORDS IN DATABASE =================")
-        // Views all info from database
         for result in resultsFromRecord {
             let cardsResult = result.value(forKey: "cardsNumber") ?? 0
             let tryResult = result.value(forKey: "tries") ?? 0

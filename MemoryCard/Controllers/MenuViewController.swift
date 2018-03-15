@@ -112,7 +112,6 @@ extension MenuViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         if collectionView == self.imagePackCollectionView {
             let cell: ImagePackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImagePackCell", for: indexPath) as! ImagePackCollectionViewCell
             cell.imagePackView.image = imagesPack[indexPath.item]
@@ -160,11 +159,8 @@ extension MenuViewController: UICollectionViewDataSource {
 extension MenuViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         if collectionView == self.imagePackCollectionView {
-            // Changes color of imageCardCell
-            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
-            // Saves name of imagePack from imagePackCell
+            imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.Backgrounds.darkBlue
             imagePackName = String(imagesPackLabel[indexPath.item])
             print("\(imagePackName) stickerPack Selected ")
         } else {
@@ -174,11 +170,8 @@ extension MenuViewController: UICollectionViewDelegate {
                 showAlert(titles, message)
                 return
             }
-            // Saves numberOfCards from levelPackCell
             cardNumber = Int(levelsPack[indexPath.item])!
             print("NumberOfCards in Level = \(cardNumber)")
-            print("IndexOf LevelPackCell = \(indexPath.item)")
-            
             performSegue(withIdentifier: "NumberOfCard", sender: self)
         }
     }

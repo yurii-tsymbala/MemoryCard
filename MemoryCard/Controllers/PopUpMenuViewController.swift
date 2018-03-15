@@ -57,6 +57,5 @@ class PopUpMenuViewController: UIViewController {
         menuView.layer.cornerRadius = CGFloat.Design.CornerRadius
         menuView.layer.borderWidth = CGFloat.Design.BorderWidth
         menuView.backgroundColor = UIColor.Backgrounds.lightRed
-        
     }
 }

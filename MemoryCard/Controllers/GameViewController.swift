@@ -92,7 +92,6 @@ class GameViewController: UIViewController {
     
     private func newGame() {
         cardArray = model.getCards(cardNumberInModel: cardNumbersFromMenuController,imagePackInModel: imagePackLabelFromMenuController )
-        
         seconds = 0
         flipCount = 0
         cardCollectionView.reloadData()
