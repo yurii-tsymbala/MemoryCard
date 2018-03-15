@@ -41,15 +41,21 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var coinLabel: UILabel!
     
+    func viewDesign() {
+        view.backgroundColor = UIColor.Backgrounds.mainYellow
+        levelPackCollectionView.backgroundColor = UIColor.Backgrounds.mainYellow
+        imagePackCollectionView.backgroundColor = UIColor.Backgrounds.mediumGray
+        imagePackCollectionView.layer.borderColor = UIColor.Backgrounds.lightBlack.cgColor
+        imagePackCollectionView.layer.borderWidth = CGFloat.Design.BorderWidth * 2
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePackCollectionView.delegate = self
         levelPackCollectionView.delegate = self
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
-        imagePackCollectionView.backgroundColor = #colorLiteral(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1)
-        imagePackCollectionView.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        imagePackCollectionView.layer.borderWidth = 5
+        viewDesign()
         fetchDataFromDB()
         parseJson()
     }
@@ -65,7 +71,7 @@ class MenuViewController: UIViewController {
         }
     }
     
-    func parseJson(){
+    func parseJson() {
         let jsonUrlString = "https://raw.githubusercontent.com/yurii-tsymbala/Assets/master/images.json"
         guard let url = URL(string: jsonUrlString) else { return}
         URLSession.shared.dataTask(with: url) { (data, response, err) in
@@ -114,17 +120,17 @@ extension MenuViewController: UICollectionViewDataSource {
             return cell
         } else {
             let cell: LevelPackCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelPackCell", for: indexPath) as! LevelPackCollectionViewCell
-            designOfCell(cell: cell)
+            cellDesign(cell: cell)
             cell.numberOfLevel.text = levelsPack[indexPath.item]
             cell.scoreOfLevel.text = "Best score: -- tries"
             cell.timeOfLevel.text = "Best time: -- sec"
             
             if indexPath.row < (results.count) {
-                cell.backgroundColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+                cell.backgroundColor = #colorLiteral(red: 0.1062374366, green: 0.5365244289, blue: 0.1832579575, alpha: 0.7509899401)
             } else if indexPath.row == results.count {
-                cell.backgroundColor = #colorLiteral(red: 0.7972514629, green: 0.6857745647, blue: 0.05130522698, alpha: 1)
+                cell.backgroundColor = #colorLiteral(red: 0.6932503173, green: 0.07950783619, blue: 0.01839272857, alpha: 0.6007063356)
             } else {
-                cell.backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
+                cell.backgroundColor = #colorLiteral(red: 0.3663622747, green: 1, blue: 0.7238394915, alpha: 0.1096960616)
             }
             for result in results {
                 let tryResult = result.value(forKey: "tries") ?? 0
@@ -139,9 +145,9 @@ extension MenuViewController: UICollectionViewDataSource {
         }
     }
     
-    func designOfCell(cell: LevelPackCollectionViewCell ) {
-        cell.layer.cornerRadius = 50
-        cell.layer.borderWidth = 3
+    func cellDesign(cell: LevelPackCollectionViewCell ) {
+        cell.layer.cornerRadius = CGFloat.Design.CornerRadius
+        cell.layer.borderWidth = CGFloat.Design.BorderWidth
         cell.alpha = 0
         cell.layer.transform = CATransform3DMakeScale(0.5, 0.5, 0.5)
         UIView.animate(withDuration: 0.8, animations: { () -> Void in
@@ -166,6 +172,7 @@ extension MenuViewController: UICollectionViewDelegate {
                 titles = "No access"
                 message = "Pass previous levels"
                 showAlert(titles, message)
+                return
             }
             // Saves numberOfCards from levelPackCell
             cardNumber = Int(levelsPack[indexPath.item])!

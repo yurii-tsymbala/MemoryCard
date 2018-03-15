@@ -10,7 +10,15 @@ import UIKit
 
 class PopUpMenuViewController: UIViewController {
     
+    @IBOutlet weak var menuView: UIView!
+    
     @IBOutlet weak var pauseLabel: UILabel!
+    
+    @IBOutlet weak var quitButton: UIButton!
+    
+    @IBOutlet weak var resetButton: UIButton!
+    
+    @IBOutlet weak var continueButton: UIButton!
     
     // Returns to main menu
     @IBAction func quitButton(_ sender: UIButton) {
@@ -31,5 +39,27 @@ class PopUpMenuViewController: UIViewController {
     
     @IBAction func continueButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDesign()
+    }
+    
+    func viewDesign() {
+        view.backgroundColor = UIColor.Backgrounds.darkYellow
+        quitButton.backgroundColor = UIColor.Backgrounds.darkOrange
+        quitButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        quitButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        resetButton.backgroundColor = UIColor.Backgrounds.mediumOrange
+        resetButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        resetButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        continueButton.backgroundColor = UIColor.Backgrounds.lightOrange
+        continueButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        continueButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        menuView.layer.cornerRadius = CGFloat.Design.CornerRadius
+        menuView.layer.borderWidth = CGFloat.Design.BorderWidth
+        menuView.backgroundColor = UIColor.Backgrounds.lightRed
+        
     }
 }

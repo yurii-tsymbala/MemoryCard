@@ -42,10 +42,24 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var flipCountLabel: UILabel!
     
+    @IBOutlet weak var menuButton: UIButton!
+    
+    func viewDesign() {
+        view.backgroundColor = UIColor.Backgrounds.mainYellow
+        cardCollectionView.backgroundColor = UIColor.Backgrounds.mainYellow
+        menuButton.backgroundColor = UIColor.Backgrounds.darkOrange
+        menuButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth / 4
+        timerLabel.backgroundColor = UIColor.Backgrounds.mediumOrange
+        timerLabel.layer.borderWidth = CGFloat.Design.buttonBorderWidth / 4
+        flipCountLabel.backgroundColor = UIColor.Backgrounds.lightOrange
+        flipCountLabel.layer.borderWidth = CGFloat.Design.buttonBorderWidth / 4
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         cardCollectionView.delegate = self
         cardCollectionView.dataSource = self
+        viewDesign()
         newGame()
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "retryButton"), object: nil, queue: OperationQueue.main)
         { (notification) in
@@ -167,13 +181,13 @@ extension GameViewController:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
-        designOfCell(cell: cell)
+        cellDesign(cell: cell)
         let card = cardArray[indexPath.row]
         cell.setCard(card)
         return cell
     }
     
-    func designOfCell(cell: CardCollectionViewCell) {
+    func cellDesign(cell: CardCollectionViewCell) {
         cell.alpha = 0
         cell.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
         UIView.animate(withDuration: 0.6, animations: { () -> Void in

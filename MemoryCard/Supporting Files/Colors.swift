@@ -11,31 +11,21 @@ import UIKit
 
 extension UIColor {
     
-    static var darkModeratePink: UIColor { return UIColor(red:0.60, green:0.20, blue:0.40, alpha:1.0) }
-    
     struct Backgrounds {
-        static var GrayLighter: UIColor  { return UIColor(red:0.26, green:0.30, blue:0.33, alpha:1.0) }
-        static var GrayLight: UIColor  { return UIColor(red:0.15, green:0.17, blue:0.18, alpha:1.0) }
-        static var GrayDark: UIColor  { return UIColor(red:0.08, green:0.09, blue:0.11, alpha:1.0) }
-    }
-    
-    struct Font {
-        static var White: UIColor { return UIColor(red:0.92, green:0.92, blue:0.92, alpha:1.0) }
-        static var Gray: UIColor { return UIColor(red:0.39, green:0.40, blue:0.41, alpha:1.0) }
-    }
-    
-    struct TabBar {
-        static var tint: UIColor { return darkModeratePink }
-        static var barTint: UIColor { return black }
+        static var darkOrange: UIColor  { return UIColor(red:1.00, green:0.60, blue:0.00, alpha:1.0) }
+        static var mediumOrange: UIColor { return UIColor(red:0.95, green:0.66, blue:0.22, alpha:1.0) }
+        static var lightOrange: UIColor  { return UIColor(red:0.97, green:0.76, blue:0.40, alpha:1.0) }
+        static var lightBlack: UIColor { return UIColor(red: 0.2298397148, green: 0.2734779793, blue: 0.2721715065, alpha: 1) }
+        static var mediumGray: UIColor { return UIColor(red:0.75, green:0.61, blue:0.37, alpha:1.0) }
+        static var lightRed: UIColor { return UIColor(red:0.69, green:0.25, blue:0.04, alpha:1.0)}
+        static var darkBlue: UIColor { return UIColor(red:0.16, green:0.32, blue:0.79, alpha:1.0)}
+        static var darkYellow: UIColor { return UIColor(red:0.90, green:0.85, blue:0.52, alpha:0.6) }
+        static var mainYellow: UIColor { return UIColor(red:1.00, green:0.88, blue:0.34, alpha:1.0)}
     }
     
     struct Button {
-        static var backgroundColor: UIColor { return darkModeratePink }
+        static var backgroundColor: UIColor { return UIColor.cyan }
         static var titleColor: UIColor { return white }
-    }
-    
-    struct TextFieldBackGrounds {
-        static var BackgroundForFalse: UIColor { return UIColor(red:0.75, green:0.10, blue:0.10, alpha:1.0) }
     }
 }
 

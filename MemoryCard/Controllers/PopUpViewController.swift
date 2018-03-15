@@ -17,34 +17,32 @@ class PopUpViewController: UIViewController {
     
     var firstTryOfLevel = false
     
-    //  Amount of cards
     var cardsNumberFromGameController = 0
     
-    //  Wasted time
     var timeFromGameController = 0
     
-    // Amount of tries
     var triesFromGameController = 0
     
     var coinsFromLevel = 10
     
-    // "Level completed" label
     @IBOutlet weak var levelNumberLabel: UILabel!
     
-    // Amount of tries wasted in level
     @IBOutlet weak var trieLabel: UILabel!
     
-    // Wasted time in level
     @IBOutlet weak var timeLabel: UILabel!
     
-    // Amount of coins
     @IBOutlet weak var coinLabel: UILabel!
     
-    @IBOutlet weak var RecordView: UIView!
+    @IBOutlet weak var recordView: UIView!
     
     @IBOutlet weak var shareButton: UIButton!
     
-    // Shares info about level
+    @IBOutlet weak var menuButton: UIButton!
+    
+    @IBOutlet weak var retryButton: UIButton!
+    
+    @IBOutlet weak var nextLevelButton: UIButton!
+    
     @IBAction func shareButton(_ sender: UIButton) {
         
         let screenForSharing = captureScreen()
@@ -54,7 +52,7 @@ class PopUpViewController: UIViewController {
     }
     
     func captureScreen() -> UIImage? {
-        let screen = RecordView.window?.layer
+        let screen = recordView.window?.layer
         let scale = UIScreen.main.scale
         UIGraphicsBeginImageContextWithOptions((screen?.frame.size)!, false, scale);
         screen?.render(in: UIGraphicsGetCurrentContext()!)
@@ -64,13 +62,11 @@ class PopUpViewController: UIViewController {
     
     // Returns to Main Menu
     @IBAction func menuButton(_ sender: UIButton) {
-        
         let startMenu = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         let startMenuNav = UINavigationController(rootViewController: startMenu)
         startMenuNav.isNavigationBarHidden = true
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = startMenuNav
-        // Removes RecordMenu
         dismiss(animated: true, completion: nil)
     }
     
@@ -84,12 +80,33 @@ class PopUpViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func viewDesign() {
         shareButton.isHidden = true
         timeLabel.text = "Time : \(timeFromGameController) seconds"
         trieLabel.text = "Tries : \(triesFromGameController)"
         coinLabel.text = "Coins : + \(coinsFromLevel)"
+        view.backgroundColor = UIColor.Backgrounds.darkYellow
+        recordView.backgroundColor = UIColor.Backgrounds.lightRed
+        recordView.layer.cornerRadius = CGFloat.Design.CornerRadius
+        recordView.layer.borderWidth = CGFloat.Design.BorderWidth
+        menuButton.backgroundColor = UIColor.Backgrounds.darkOrange
+        menuButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        menuButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        retryButton.backgroundColor = UIColor.Backgrounds.mediumOrange
+        retryButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        retryButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        nextLevelButton.backgroundColor = UIColor.Backgrounds.lightOrange
+        nextLevelButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        nextLevelButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        shareButton.layer.cornerRadius = CGFloat.Design.buttonCornerRadiuis
+        shareButton.layer.borderWidth = CGFloat.Design.buttonBorderWidth
+        shareButton.backgroundColor = UIColor.Backgrounds.darkBlue
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewDesign()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,7 +193,7 @@ class PopUpViewController: UIViewController {
                 if tryResult > triesFromGameController && timeResult > timeFromGameController {
                     result.setValue(triesFromGameController, forKey: "tries")
                     result.setValue(timeFromGameController, forKey: "time")
-                    levelNumberLabel.text = "New best score and time"
+                    levelNumberLabel.text = "New score & time"
                     shareButton.isHidden = false
                 } else if tryResult > triesFromGameController {
                     result.setValue(triesFromGameController, forKey: "tries")
