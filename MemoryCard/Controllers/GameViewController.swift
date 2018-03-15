@@ -30,9 +30,9 @@ class GameViewController: UIViewController {
     
     private var firstFlippedCardIndex:IndexPath?
     
-    private var cardNumbersFromMenuController = 4
+    var cardNumbersFromMenuController = 4
     
-    private var imagePackLabelFromMenuController = "Pokemons"
+    var imagePackLabelFromMenuController = "Pokemons"
     
     private let cellMagrings: CGFloat = 5
     

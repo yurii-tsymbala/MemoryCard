@@ -17,11 +17,11 @@ class PopUpViewController: UIViewController {
     
     private var firstTryOfLevel = false
     
-    private var cardsNumberFromGameController = 0
+    var cardsNumberFromGameController = 0
     
-    private var timeFromGameController = 0
+    var timeFromGameController = 0
     
-    private var triesFromGameController = 0
+    var triesFromGameController = 0
     
     private var coinsFromLevel = 10
     
@@ -110,8 +110,8 @@ class PopUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkForFirstTry()
         fetchDataFromDB()
+        checkForFirstTry()
     }
     
     func checkForFirstTry() {
