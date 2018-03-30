@@ -17,17 +17,21 @@ class CardCollectionViewCell: UICollectionViewCell {
     var card:Card?
     
     func setCard(_ card:Card) {
-        self.card = card
-        var imageUrlString = ""
-        for image in imagesPic {
-            if let name = image.name {
-                if card.cardPhotoName == name {
-                    imageUrlString = image.link!
+        DispatchQueue.global().async {
+            self.card = card
+            var imageUrlString = ""
+            for image in imagesPic {
+                if let name = image.name {
+                    if card.cardPhotoName == name {
+                        imageUrlString = image.link!
+                    }
                 }
             }
+            let imageUrl = URL(string: imageUrlString)!
+            DispatchQueue.global().async {
+                self.photoCard.image = try! UIImage(withContentsOfUrl: imageUrl)
+            }
         }
-        let imageUrl = URL(string: imageUrlString)!
-        photoCard.image = try! UIImage(withContentsOfUrl: imageUrl)
         //Fixed bugs with viewing cards after restart of the level
         if card.isMatched == true {
             backgroundCard.alpha = 0
