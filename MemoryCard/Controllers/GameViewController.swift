@@ -70,12 +70,19 @@ class GameViewController: UIViewController {
             self.cardNumbersFromMenuController += 4
             self.newGame()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(myActionWhenProgramGoToBackground), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
     }
     
     // MARK: Timer Methods
     
     @IBAction func menuButton(_ sender: UIButton) {
         timer?.invalidate()
+    }
+    
+    @objc func myActionWhenProgramGoToBackground() {
+        timer?.invalidate()
+        performSegue(withIdentifier: "MenuSegue", sender: self)
     }
     
     private func timerStart() {
