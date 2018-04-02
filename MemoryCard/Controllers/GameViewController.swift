@@ -79,7 +79,7 @@ class GameViewController: UIViewController {
     @IBAction func menuButton(_ sender: UIButton) {
         timer?.invalidate()
     }
-    
+     
     @objc func myActionWhenProgramGoToBackground() {
         timer?.invalidate()
         performSegue(withIdentifier: "MenuSegue", sender: self)

@@ -111,6 +111,7 @@ class PopUpViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchDataFromDB()
         checkForFirstTry()
+        updateCoinsCounter()
     }
     
     func checkForFirstTry() {
@@ -132,10 +133,8 @@ class PopUpViewController: UIViewController {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequestRecord = NSFetchRequest<NSManagedObject>(entityName: "Record")
-        let fetchRequestCoin = NSFetchRequest<NSManagedObject>(entityName: "Coins")
         do {
             resultsFromRecord = try managedContext.fetch(fetchRequestRecord)
-            resultsFromCoins = try managedContext.fetch(fetchRequestCoin)
         } catch let err as NSError {
             print("Failed to fetch items", err)
         }
@@ -149,10 +148,6 @@ class PopUpViewController: UIViewController {
             let timeResult = result.value(forKey: "time") ?? 0
             print("LEVEL : [\(cardsResult)] cards || TRIES : [\(tryResult)] fails || TIME : [\(timeResult)] seconds")
         }
-        for resultOfCoin in resultsFromCoins {
-            let coinsResult = resultOfCoin.value(forKey: "coins") ?? 0
-            print("COINS: + \(coinsResult)")
-        }
     }
     
     func saveNewResult() {
@@ -165,16 +160,45 @@ class PopUpViewController: UIViewController {
         newResultOfRecord.setValue(triesFromGameController, forKey: "tries")
         newResultOfRecord.setValue(timeFromGameController, forKey: "time")
         
-        let newResultOfCoin = NSEntityDescription.insertNewObject(forEntityName: "Coins", into: context)
-        newResultOfCoin.setValue(coinsFromLevel, forKey: "coins")
         do {
             try context.save()
             resultsFromRecord.append(newResultOfRecord)
-            resultsFromCoins.append(newResultOfCoin)
         } catch {
             print("error")
         }
         printDataFromDB()
+    }
+    
+    func updateCoinsCounter() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequestCoin = NSFetchRequest<NSManagedObject>(entityName: "Coins")
+        do {
+            resultsFromCoins = try context.fetch(fetchRequestCoin)
+        } catch let err as NSError {
+            print("Failed to fetch items", err)
+        }
+        
+        if resultsFromCoins.count == 0 {
+            let newResultOfCoin = NSEntityDescription.insertNewObject(forEntityName: "Coins", into: context)
+            newResultOfCoin.setValue(coinsFromLevel, forKey: "coins")
+        } else {
+            for result in resultsFromCoins {
+                let coins = result.value(forKey: "coins") as! Int
+                result.setValue(coins + coinsFromLevel, forKey: "coins")
+            }
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            print("error")
+        }
+        
+        for resultOfCoin in resultsFromCoins {
+            let coinsResult = resultOfCoin.value(forKey: "coins") ?? 0
+            print("COINS: + \(coinsResult)")
+        }
     }
     
     func saveBestRecordForLevel() {

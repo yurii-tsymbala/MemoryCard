@@ -15,6 +15,8 @@ class MenuViewController: UIViewController {
     
     private var results: [NSManagedObject]!
     
+    private var coins: [NSManagedObject]!
+    
     private let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
     private let imagesPack : [UIImage] = [
@@ -56,18 +58,30 @@ class MenuViewController: UIViewController {
         imagePackCollectionView.dataSource = self
         imagePackCollectionView.dataSource = self
         viewDesign()
-        fetchDataFromDB()
         parseJson()
     }
     
-   private func fetchDataFromDB() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        fetchDataFromDB()
+    }
+    
+    private func fetchDataFromDB() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Record")
+        let fetchRequestCoins = NSFetchRequest<NSManagedObject>(entityName: "Coins")
         do {
             results = try managedContext.fetch(fetchRequest)
+            coins = try managedContext.fetch(fetchRequestCoins)
         } catch let err as NSError {
             print("Failed to fetch items", err)
+        }
+        if coins.count > 0 {
+            let temp = coins[0]
+            if let coin = temp.value(forKey: "coins") {
+                coinLabel.text = "\(coin)"
+            }
         }
     }
     
