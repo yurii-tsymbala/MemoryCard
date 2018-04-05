@@ -217,11 +217,11 @@ class PopUpViewController: UIViewController {
                     shareButton.isHidden = false
                 } else if tryResult > triesFromGameController {
                     result.setValue(triesFromGameController, forKey: "tries")
-                    levelNumberLabel.text = "New best score in level"
+                    levelNumberLabel.text = "New best score"
                     shareButton.isHidden = false
                 } else if timeResult > timeFromGameController {
                     result.setValue(timeFromGameController, forKey: "time")
-                    levelNumberLabel.text = "New best time in level"
+                    levelNumberLabel.text = "New best time"
                     shareButton.isHidden = false
                 }
             }
