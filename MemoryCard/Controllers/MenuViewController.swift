@@ -17,6 +17,8 @@ class MenuViewController: UIViewController {
     
     private var coins: [NSManagedObject]!
     
+    private var coinsFromDB = 0
+    
     private let imagesPackLabel = ["Pokemons", "Food", "Cars"]
     
     private let imagesPack : [UIImage] = [
@@ -81,6 +83,7 @@ class MenuViewController: UIViewController {
             let temp = coins[0]
             if let coin = temp.value(forKey: "coins") {
                 coinLabel.text = "\(coin)"
+                coinsFromDB = coin as! Int
             }
         }
     }
@@ -174,6 +177,12 @@ extension MenuViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.imagePackCollectionView {
+            if coinsFromDB < 50 {
+                titles = "No access"
+                message = "Pass levels"
+                showAlert(titles, message)
+                return
+            }
             imagePackCollectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.Backgrounds.darkBlue
             imagePackName = String(imagesPackLabel[indexPath.item])
             print("\(imagePackName) stickerPack Selected ")

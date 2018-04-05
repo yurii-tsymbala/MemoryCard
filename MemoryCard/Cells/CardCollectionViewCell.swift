@@ -28,7 +28,7 @@ class CardCollectionViewCell: UICollectionViewCell {
                 }
             }
             let imageUrl = URL(string: imageUrlString)!
-            DispatchQueue.global().async {
+            DispatchQueue.main.async {
                 self.photoCard.image = try! UIImage(withContentsOfUrl: imageUrl)
             }
         }

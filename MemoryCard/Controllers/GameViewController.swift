@@ -10,6 +10,8 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    var activityIndicator:UIActivityIndicatorView = UIActivityIndicatorView()
+    
     private var model = CardModel()
     
     private var cardArray = [Card]()
@@ -187,9 +189,9 @@ extension GameViewController:  UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCollectionViewCell
-        cellDesign(cell: cell)
         let card = cardArray[indexPath.row]
         cell.setCard(card)
+        cellDesign(cell: cell)
         return cell
     }
     
